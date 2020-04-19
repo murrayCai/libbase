@@ -1,0 +1,7 @@
+/projects/libbase/build/CMakeFiles/rebuild_cache.dir
+/projects/libbase/build/CMakeFiles/edit_cache.dir
+/projects/libbase/build/src/CMakeFiles/rebuild_cache.dir
+/projects/libbase/build/src/CMakeFiles/edit_cache.dir
+/projects/libbase/build/test/CMakeFiles/rebuild_cache.dir
+/projects/libbase/build/test/CMakeFiles/edit_cache.dir
+/projects/libbase/build/test/CMakeFiles/test_1.dir
