@@ -1,1 +1,1 @@
-add_library(base dt.c log.c mem.c list.c)
+add_library(base dt.c log.c mem.c list.c arr.c)

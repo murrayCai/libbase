@@ -92,6 +92,7 @@ src/clean: src/CMakeFiles/base.dir/clean
 # Directory level rules for directory test
 
 # Recursive "all" directory target.
+test/all: test/CMakeFiles/test_arr.dir/all
 test/all: test/CMakeFiles/test_dt.dir/all
 test/all: test/CMakeFiles/test_list.dir/all
 test/all: test/CMakeFiles/test_mem.dir/all
@@ -105,6 +106,7 @@ test/preinstall:
 .PHONY : test/preinstall
 
 # Recursive "clean" directory target.
+test/clean: test/CMakeFiles/test_arr.dir/clean
 test/clean: test/CMakeFiles/test_dt.dir/clean
 test/clean: test/CMakeFiles/test_list.dir/clean
 test/clean: test/CMakeFiles/test_mem.dir/clean
@@ -119,12 +121,12 @@ test/clean: test/CMakeFiles/test_log.dir/clean
 src/CMakeFiles/base.dir/all:
 	$(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/depend
 	$(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target base"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target base"
 .PHONY : src/CMakeFiles/base.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/base.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/base.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/base.dir/rule
@@ -140,18 +142,45 @@ src/CMakeFiles/base.dir/clean:
 .PHONY : src/CMakeFiles/base.dir/clean
 
 #=============================================================================
+# Target rules for target test/CMakeFiles/test_arr.dir
+
+# All Build rule for target.
+test/CMakeFiles/test_arr.dir/all: src/CMakeFiles/base.dir/all
+	$(MAKE) -f test/CMakeFiles/test_arr.dir/build.make test/CMakeFiles/test_arr.dir/depend
+	$(MAKE) -f test/CMakeFiles/test_arr.dir/build.make test/CMakeFiles/test_arr.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=7,8 "Built target test_arr"
+.PHONY : test/CMakeFiles/test_arr.dir/all
+
+# Build rule for subdir invocation for target.
+test/CMakeFiles/test_arr.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 8
+	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_arr.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 0
+.PHONY : test/CMakeFiles/test_arr.dir/rule
+
+# Convenience name for target.
+test_arr: test/CMakeFiles/test_arr.dir/rule
+
+.PHONY : test_arr
+
+# clean rule for target.
+test/CMakeFiles/test_arr.dir/clean:
+	$(MAKE) -f test/CMakeFiles/test_arr.dir/build.make test/CMakeFiles/test_arr.dir/clean
+.PHONY : test/CMakeFiles/test_arr.dir/clean
+
+#=============================================================================
 # Target rules for target test/CMakeFiles/test_dt.dir
 
 # All Build rule for target.
 test/CMakeFiles/test_dt.dir/all: src/CMakeFiles/base.dir/all
 	$(MAKE) -f test/CMakeFiles/test_dt.dir/build.make test/CMakeFiles/test_dt.dir/depend
 	$(MAKE) -f test/CMakeFiles/test_dt.dir/build.make test/CMakeFiles/test_dt.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=6,7 "Built target test_dt"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=9,10 "Built target test_dt"
 .PHONY : test/CMakeFiles/test_dt.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_dt.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_dt.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_dt.dir/rule
@@ -173,12 +202,12 @@ test/CMakeFiles/test_dt.dir/clean:
 test/CMakeFiles/test_list.dir/all: src/CMakeFiles/base.dir/all
 	$(MAKE) -f test/CMakeFiles/test_list.dir/build.make test/CMakeFiles/test_list.dir/depend
 	$(MAKE) -f test/CMakeFiles/test_list.dir/build.make test/CMakeFiles/test_list.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=8,9 "Built target test_list"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=11,12 "Built target test_list"
 .PHONY : test/CMakeFiles/test_list.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_list.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_list.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_list.dir/rule
@@ -200,12 +229,12 @@ test/CMakeFiles/test_list.dir/clean:
 test/CMakeFiles/test_mem.dir/all: src/CMakeFiles/base.dir/all
 	$(MAKE) -f test/CMakeFiles/test_mem.dir/build.make test/CMakeFiles/test_mem.dir/depend
 	$(MAKE) -f test/CMakeFiles/test_mem.dir/build.make test/CMakeFiles/test_mem.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=12,13 "Built target test_mem"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=15,16 "Built target test_mem"
 .PHONY : test/CMakeFiles/test_mem.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_mem.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_mem.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_mem.dir/rule
@@ -227,12 +256,12 @@ test/CMakeFiles/test_mem.dir/clean:
 test/CMakeFiles/test_log.dir/all: src/CMakeFiles/base.dir/all
 	$(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/depend
 	$(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=10,11 "Built target test_log"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/projects/libbase/build/CMakeFiles --progress-num=13,14 "Built target test_log"
 .PHONY : test/CMakeFiles/test_log.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/test_log.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_log.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /projects/libbase/build/CMakeFiles 0
 .PHONY : test/CMakeFiles/test_log.dir/rule

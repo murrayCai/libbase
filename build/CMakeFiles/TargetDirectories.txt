@@ -3,9 +3,10 @@
 /projects/libbase/build/src/CMakeFiles/rebuild_cache.dir
 /projects/libbase/build/src/CMakeFiles/edit_cache.dir
 /projects/libbase/build/src/CMakeFiles/base.dir
+/projects/libbase/build/test/CMakeFiles/edit_cache.dir
 /projects/libbase/build/test/CMakeFiles/rebuild_cache.dir
+/projects/libbase/build/test/CMakeFiles/test_arr.dir
 /projects/libbase/build/test/CMakeFiles/test_dt.dir
 /projects/libbase/build/test/CMakeFiles/test_list.dir
-/projects/libbase/build/test/CMakeFiles/edit_cache.dir
 /projects/libbase/build/test/CMakeFiles/test_mem.dir
 /projects/libbase/build/test/CMakeFiles/test_log.dir

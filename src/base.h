@@ -84,13 +84,17 @@ int _log(log_lv_e lv,const char *file,int line,const char *fmt,...);
 
 #define CHECK_PARAM(expr) RETURN_VAL_IF_CHECK_FAIL((expr),ERR_PARAMS)
 #define CHECK_PARAM_NULL(expr) RETURN_NULL_IF_CHECK_FAIL((expr))
+#define CHECK_PARAM_VOID(expr) RETURN_IF_CHECK_FAIL((expr))
 
 
 typedef enum{
     MI_mem,
+    MI_ptr_t,
     MI_str,
+    MI_arr_t,
     MI_list_item_t,
     MI_list_t,
+    MI_uri_t,
     MI_MAX
 }mi_e;
 
@@ -108,10 +112,22 @@ typedef enum{
      (d);\
      })
 
+/* memory */
+#define MTN \
+    uint mCount;\
+    uint mSize;\
+    mi_e mIndex;\
+    const char *mName;
+
+#define MTN_P uint count,uint size,mi_e index,const char *name 
 void *malloc_t(size_t size,mi_e index,const char *name);
+void *malloc_tn(size_t count,size_t size,mi_e index,const char *name);
 void free_t(void *ptr,size_t size,mi_e index);
+void free_tn(void *ptr,size_t count,size_t size,mi_e index);
 #define MALLOC_T(type) (type *)malloc_t(sizeof(type),MI_##type,#type)
+#define MALLOC_TN(type,count) (type *)malloc_tn((count),sizeof(type),MI_##type,#type)
 #define FREE_T(ptr,type) free_t((ptr),sizeof(type),MI_##type)
+#define FREE_TN(ptr,type,count) free_tn((ptr),(count),sizeof(type),MI_##type)
 
 #define MALLOC_S(size) (char *)malloc_t(size,MI_str,"str")
 #define FREE_S(ptr,size) free_t(ptr,size,MI_str)
@@ -121,6 +137,8 @@ int mem_init();
 void mem_show();
 void mem_finish();
 
+
+/* list */
 typedef int (*list_free_f)(void *data);
 typedef struct list_s list_t;
 struct list_s{
@@ -140,4 +158,20 @@ int list_insert(list_t *list,void *data,unsigned int index);
 void *list_index(list_t *list,unsigned int index);
 
 int list_del(list_t *list,void *data);
+
+
+/* arr ptr */
+
+typedef void * ptr_t;
+
+typedef struct arr_s arr_t;
+struct arr_s{
+    uint count;
+    uint used;
+    ptr_t *data;
+};
+arr_t *arr_init(uint count);
+void arr_free(arr_t *arr);
+int arr_add(arr_t *arr,void *data);
+void *arr_index(arr_t *arr,uint index);
 #endif

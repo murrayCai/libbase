@@ -124,6 +124,19 @@ base/fast:
 .PHONY : base/fast
 
 #=============================================================================
+# Target rules for targets named test_arr
+
+# Build rule for target.
+test_arr: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_arr
+.PHONY : test_arr
+
+# fast build rule for target.
+test_arr/fast:
+	$(MAKE) -f test/CMakeFiles/test_arr.dir/build.make test/CMakeFiles/test_arr.dir/build
+.PHONY : test_arr/fast
+
+#=============================================================================
 # Target rules for targets named test_dt
 
 # Build rule for target.
@@ -184,6 +197,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... base"
+	@echo "... test_arr"
 	@echo "... test_dt"
 	@echo "... test_list"
 	@echo "... test_mem"

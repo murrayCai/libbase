@@ -10,3 +10,6 @@ target_link_libraries(test_mem base)
 add_executable(test_list list.c)
 target_link_libraries(test_list base)
 
+add_executable(test_arr arr.c)
+target_link_libraries(test_arr base)
+

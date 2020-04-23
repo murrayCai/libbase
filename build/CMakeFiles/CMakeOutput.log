@@ -15,13 +15,13 @@ The C compiler identification is Clang, found in "/projects/libbase/build/CMakeF
 Determining if the C compiler works passed with the following output:
 Change Dir: /projects/libbase/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/local/bin/gmake cmTC_19d3b/fast && /usr/local/bin/gmake -f CMakeFiles/cmTC_19d3b.dir/build.make CMakeFiles/cmTC_19d3b.dir/build
+Run Build Command(s):/usr/local/bin/gmake cmTC_0f789/fast && /usr/local/bin/gmake -f CMakeFiles/cmTC_0f789.dir/build.make CMakeFiles/cmTC_0f789.dir/build
 gmake[1]: Entering directory '/projects/libbase/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_19d3b.dir/testCCompiler.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_19d3b.dir/testCCompiler.c.o   -c /projects/libbase/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_19d3b
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_19d3b.dir/link.txt --verbose=1
-/usr/bin/cc      CMakeFiles/cmTC_19d3b.dir/testCCompiler.c.o  -o cmTC_19d3b 
+Building C object CMakeFiles/cmTC_0f789.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_0f789.dir/testCCompiler.c.o   -c /projects/libbase/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_0f789
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0f789.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_0f789.dir/testCCompiler.c.o  -o cmTC_0f789 
 gmake[1]: Leaving directory '/projects/libbase/build/CMakeFiles/CMakeTmp'
 
 
@@ -29,29 +29,29 @@ gmake[1]: Leaving directory '/projects/libbase/build/CMakeFiles/CMakeTmp'
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /projects/libbase/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/local/bin/gmake cmTC_f3856/fast && /usr/local/bin/gmake -f CMakeFiles/cmTC_f3856.dir/build.make CMakeFiles/cmTC_f3856.dir/build
+Run Build Command(s):/usr/local/bin/gmake cmTC_cba93/fast && /usr/local/bin/gmake -f CMakeFiles/cmTC_cba93.dir/build.make CMakeFiles/cmTC_cba93.dir/build
 gmake[1]: Entering directory '/projects/libbase/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc   -v -o CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
+Building C object CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc   -v -o CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
 FreeBSD clang version 8.0.1 (tags/RELEASE_801/final 366581) (based on LLVM 8.0.1)
 Target: x86_64-unknown-freebsd12.1
 Thread model: posix
 InstalledDir: /usr/bin
- "/usr/bin/cc" -cc1 -triple x86_64-unknown-freebsd12.1 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mthread-model posix -mdisable-fp-elim -masm-verbose -mconstructor-aliases -munwind-tables -fuse-init-array -target-cpu x86-64 -dwarf-column-info -debugger-tuning=gdb -v -coverage-notes-file /projects/libbase/build/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.gcno -resource-dir /usr/lib/clang/8.0.1 -fdebug-compilation-dir /projects/libbase/build/CMakeFiles/CMakeTmp -ferror-limit 19 -fmessage-length 0 -fobjc-runtime=gnustep -fdiagnostics-show-option -o CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c -faddrsig
+ "/usr/bin/cc" -cc1 -triple x86_64-unknown-freebsd12.1 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mthread-model posix -mdisable-fp-elim -masm-verbose -mconstructor-aliases -munwind-tables -fuse-init-array -target-cpu x86-64 -dwarf-column-info -debugger-tuning=gdb -v -coverage-notes-file /projects/libbase/build/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.gcno -resource-dir /usr/lib/clang/8.0.1 -fdebug-compilation-dir /projects/libbase/build/CMakeFiles/CMakeTmp -ferror-limit 19 -fmessage-length 0 -fobjc-runtime=gnustep -fdiagnostics-show-option -o CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c -faddrsig
 clang -cc1 version 8.0.1 based upon LLVM 8.0.1 default target x86_64-unknown-freebsd12.1
 #include "..." search starts here:
 #include <...> search starts here:
  /usr/lib/clang/8.0.1/include
  /usr/include
 End of search list.
-Linking C executable cmTC_f3856
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f3856.dir/link.txt --verbose=1
-/usr/bin/cc     -v CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o  -o cmTC_f3856 
+Linking C executable cmTC_cba93
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cba93.dir/link.txt --verbose=1
+/usr/bin/cc     -v CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o  -o cmTC_cba93 
 FreeBSD clang version 8.0.1 (tags/RELEASE_801/final 366581) (based on LLVM 8.0.1)
 Target: x86_64-unknown-freebsd12.1
 Thread model: posix
 InstalledDir: /usr/bin
- "/usr/bin/ld" --eh-frame-hdr -dynamic-linker /libexec/ld-elf.so.1 --hash-style=both --enable-new-dtags -o cmTC_f3856 /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o -L/usr/lib CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/crtend.o /usr/lib/crtn.o
+ "/usr/bin/ld" --eh-frame-hdr -dynamic-linker /libexec/ld-elf.so.1 --hash-style=both --enable-new-dtags -o cmTC_cba93 /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o -L/usr/lib CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/crtend.o /usr/lib/crtn.o
 gmake[1]: Leaving directory '/projects/libbase/build/CMakeFiles/CMakeTmp'
 
 
@@ -71,29 +71,29 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /projects/libbase/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command(s):/usr/local/bin/gmake cmTC_f3856/fast && /usr/local/bin/gmake -f CMakeFiles/cmTC_f3856.dir/build.make CMakeFiles/cmTC_f3856.dir/build]
+  ignore line: [Run Build Command(s):/usr/local/bin/gmake cmTC_cba93/fast && /usr/local/bin/gmake -f CMakeFiles/cmTC_cba93.dir/build.make CMakeFiles/cmTC_cba93.dir/build]
   ignore line: [gmake[1]: Entering directory '/projects/libbase/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
+  ignore line: [Building C object CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
   ignore line: [FreeBSD clang version 8.0.1 (tags/RELEASE_801/final 366581) (based on LLVM 8.0.1)]
   ignore line: [Target: x86_64-unknown-freebsd12.1]
   ignore line: [Thread model: posix]
   ignore line: [InstalledDir: /usr/bin]
-  ignore line: [ "/usr/bin/cc" -cc1 -triple x86_64-unknown-freebsd12.1 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mthread-model posix -mdisable-fp-elim -masm-verbose -mconstructor-aliases -munwind-tables -fuse-init-array -target-cpu x86-64 -dwarf-column-info -debugger-tuning=gdb -v -coverage-notes-file /projects/libbase/build/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.gcno -resource-dir /usr/lib/clang/8.0.1 -fdebug-compilation-dir /projects/libbase/build/CMakeFiles/CMakeTmp -ferror-limit 19 -fmessage-length 0 -fobjc-runtime=gnustep -fdiagnostics-show-option -o CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c -faddrsig]
+  ignore line: [ "/usr/bin/cc" -cc1 -triple x86_64-unknown-freebsd12.1 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mthread-model posix -mdisable-fp-elim -masm-verbose -mconstructor-aliases -munwind-tables -fuse-init-array -target-cpu x86-64 -dwarf-column-info -debugger-tuning=gdb -v -coverage-notes-file /projects/libbase/build/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.gcno -resource-dir /usr/lib/clang/8.0.1 -fdebug-compilation-dir /projects/libbase/build/CMakeFiles/CMakeTmp -ferror-limit 19 -fmessage-length 0 -fobjc-runtime=gnustep -fdiagnostics-show-option -o CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c -faddrsig]
   ignore line: [clang -cc1 version 8.0.1 based upon LLVM 8.0.1 default target x86_64-unknown-freebsd12.1]
   ignore line: [#include "..." search starts here:]
   ignore line: [#include <...> search starts here:]
   ignore line: [ /usr/lib/clang/8.0.1/include]
   ignore line: [ /usr/include]
   ignore line: [End of search list.]
-  ignore line: [Linking C executable cmTC_f3856]
-  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f3856.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc     -v CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o  -o cmTC_f3856 ]
+  ignore line: [Linking C executable cmTC_cba93]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cba93.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o  -o cmTC_cba93 ]
   ignore line: [FreeBSD clang version 8.0.1 (tags/RELEASE_801/final 366581) (based on LLVM 8.0.1)]
   ignore line: [Target: x86_64-unknown-freebsd12.1]
   ignore line: [Thread model: posix]
   ignore line: [InstalledDir: /usr/bin]
-  link line: [ "/usr/bin/ld" --eh-frame-hdr -dynamic-linker /libexec/ld-elf.so.1 --hash-style=both --enable-new-dtags -o cmTC_f3856 /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o -L/usr/lib CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/crtend.o /usr/lib/crtn.o]
+  link line: [ "/usr/bin/ld" --eh-frame-hdr -dynamic-linker /libexec/ld-elf.so.1 --hash-style=both --enable-new-dtags -o cmTC_cba93 /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o -L/usr/lib CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/crtend.o /usr/lib/crtn.o]
     arg [/usr/bin/ld] ==> ignore
     arg [--eh-frame-hdr] ==> ignore
     arg [-dynamic-linker] ==> ignore
@@ -101,12 +101,12 @@ Parsed C implicit link information from above output:
     arg [--hash-style=both] ==> ignore
     arg [--enable-new-dtags] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_f3856] ==> ignore
+    arg [cmTC_cba93] ==> ignore
     arg [/usr/lib/crt1.o] ==> ignore
     arg [/usr/lib/crti.o] ==> ignore
     arg [/usr/lib/crtbegin.o] ==> ignore
     arg [-L/usr/lib] ==> dir [/usr/lib]
-    arg [CMakeFiles/cmTC_f3856.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_cba93.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]

@@ -60,7 +60,25 @@ void *malloc_t(size_t size,mi_e index,const char *name){
     mItems[index].used+=size;
     mItems[0].mCount++;
     mItems[0].used+=size;
+    mItems[0].mTotal+=size;
     return d;
+}
+
+void *malloc_tn(size_t count,size_t size,mi_e index,const char *name){
+    if(NULL==mItems) mem_init();
+    RETURN_NULL_IF_CHECK_FAIL(index > 0 && index < MI_MAX);
+    size_t total = size * count;
+    void *d = MALLOC(total);
+    RETURN_NULL_IF_FAIL(NULL!=d);
+    mItems[index].name = name;
+    mItems[index].mCount++;
+    mItems[index].mTotal+=total;
+    mItems[index].used+=total;
+    mItems[0].mCount++;
+    mItems[0].used+=total;
+    mItems[0].mTotal+=total;
+    return d;
+
 }
 
 void free_t(void *ptr,size_t size,mi_e index){
@@ -74,4 +92,14 @@ void free_t(void *ptr,size_t size,mi_e index){
     }
 }
 
-
+void free_tn(void *ptr,size_t count,size_t size,mi_e index){
+    if(NULL != ptr){
+        free(ptr);
+        uint total = size * count;
+        mItems[index].fCount++;
+        mItems[index].used -= total ;
+        mItems[0].fCount++;
+        mItems[0].used -= total;
+        ptr = NULL;
+    }
+}

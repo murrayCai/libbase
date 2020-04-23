@@ -125,6 +125,33 @@ base/fast:
 	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/build
 .PHONY : base/fast
 
+arr.o: arr.c.o
+
+.PHONY : arr.o
+
+# target to build an object file
+arr.c.o:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/arr.c.o
+.PHONY : arr.c.o
+
+arr.i: arr.c.i
+
+.PHONY : arr.i
+
+# target to preprocess a source file
+arr.c.i:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/arr.c.i
+.PHONY : arr.c.i
+
+arr.s: arr.c.s
+
+.PHONY : arr.s
+
+# target to generate assembly for a file
+arr.c.s:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/arr.c.s
+.PHONY : arr.c.s
+
 dt.o: dt.c.o
 
 .PHONY : dt.o
@@ -242,6 +269,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... base"
+	@echo "... arr.o"
+	@echo "... arr.i"
+	@echo "... arr.s"
 	@echo "... dt.o"
 	@echo "... dt.i"
 	@echo "... dt.s"
