@@ -1,0 +1,143 @@
+#ifndef _BASE_H_
+#define _BASE_H_
+
+#include <stdio.h>
+#include <time.h>
+
+#define uint unsigned int
+
+typedef enum{
+    ERR_NONE,
+    ERR_PARAMS,
+    ERR_MALLOC_NULL,
+}err_e;
+
+char *now_str();
+
+typedef enum{
+    LOG_LV_DEBUG,
+    LOG_LV_INFO,
+    LOG_LV_WARN,
+    LOG_LV_ERROR
+}log_lv_e;
+
+#define LOG_LV_STR(lv)\
+    ({\
+     char *str = NULL;\
+     if(LOG_LV_DEBUG == (lv)) str = "DEBUG";\
+     else if(LOG_LV_INFO == (lv)) str = "INFO";\
+     else if(LOG_LV_WARN == (lv)) str = "WARN";\
+     else if(LOG_LV_ERROR == (lv)) str = "ERROR";\
+     else str = "UNKOWN";\
+     (str);\
+     })
+
+int _log(log_lv_e lv,const char *file,int line,const char *fmt,...);
+
+#define LOGD(fmt,...) \
+    _log(LOG_LV_DEBUG,__FILE__,__LINE__,fmt,##__VA_ARGS__)
+
+#define LOGI(fmt,...) \
+    _log(LOG_LV_INFO,__FILE__,__LINE__,fmt,##__VA_ARGS__)
+
+#define LOGW(fmt,...) \
+    _log(LOG_LV_WARN,__FILE__,__LINE__,fmt,##__VA_ARGS__)
+
+#define LOGE(fmt,...) \
+    _log(LOG_LV_ERROR,__FILE__,__LINE__,fmt,##__VA_ARGS__)
+
+
+
+#define RETURN_NULL_IF_FAIL(expr)\
+    do{\
+        if(!(expr)) return NULL;\
+    }while(0)
+
+#define RETURN_VAL_IF_FAIL(expr,val)\
+    do{\
+        if(!(expr)) return (val);\
+    }while(0)
+
+#define RETURN_IF_CHECK_FAIL(expr)\
+    do{\
+        if(!(expr)){\
+            _log(LOG_LV_DEBUG,__FILE__,__LINE__,"check (%s) failed!",#expr);\
+            return;\
+        }\
+    }while(0)
+
+#define RETURN_NULL_IF_CHECK_FAIL(expr) \
+    do{\
+        if(!(expr)){\
+            _log(LOG_LV_DEBUG,__FILE__,__LINE__,"check (%s) failed!",#expr);\
+            return NULL;\
+        }\
+    }while(0)
+
+#define RETURN_VAL_IF_CHECK_FAIL(expr,val) \
+    do{\
+        if(!(expr)){\
+            _log(LOG_LV_DEBUG,__FILE__,__LINE__,"check (%s) failed!",#expr);\
+            return (val);\
+        }\
+    }while(0)
+
+#define CHECK_PARAM(expr) RETURN_VAL_IF_CHECK_FAIL((expr),ERR_PARAMS)
+#define CHECK_PARAM_NULL(expr) RETURN_NULL_IF_CHECK_FAIL((expr))
+
+
+typedef enum{
+    MI_mem,
+    MI_str,
+    MI_list_item_t,
+    MI_list_t,
+    MI_MAX
+}mi_e;
+
+
+#define MALLOC(size) \
+    ({\
+     void *d = NULL;\
+     d = malloc(size);\
+     if(NULL==d){\
+        LOGE("malloc %s failed!\n",size);\
+     }\
+     else{\
+        memset(d,0,size);\
+     } \
+     (d);\
+     })
+
+void *malloc_t(size_t size,mi_e index,const char *name);
+void free_t(void *ptr,size_t size,mi_e index);
+#define MALLOC_T(type) (type *)malloc_t(sizeof(type),MI_##type,#type)
+#define FREE_T(ptr,type) free_t((ptr),sizeof(type),MI_##type)
+
+#define MALLOC_S(size) (char *)malloc_t(size,MI_str,"str")
+#define FREE_S(ptr,size) free_t(ptr,size,MI_str)
+
+
+int mem_init();
+void mem_show();
+void mem_finish();
+
+typedef int (*list_free_f)(void *data);
+typedef struct list_s list_t;
+struct list_s{
+    uint size;
+    void *head;
+    void *tail;
+    list_free_f free;
+};
+
+list_t *list_init(list_free_f f);
+int list_free(list_t *list);
+
+int list_add(list_t *list,void *data);
+
+int list_insert(list_t *list,void *data,unsigned int index);
+
+void *list_index(list_t *list,unsigned int index);
+
+int list_del(list_t *list,void *data);
+#endif

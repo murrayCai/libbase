@@ -111,46 +111,172 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-test/CMakeFiles/test_1.dir/rule:
-	cd /projects/libbase/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_1.dir/rule
-.PHONY : test/CMakeFiles/test_1.dir/rule
+test/CMakeFiles/test_dt.dir/rule:
+	cd /projects/libbase/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_dt.dir/rule
+.PHONY : test/CMakeFiles/test_dt.dir/rule
 
 # Convenience name for target.
-test_1: test/CMakeFiles/test_1.dir/rule
+test_dt: test/CMakeFiles/test_dt.dir/rule
 
-.PHONY : test_1
+.PHONY : test_dt
 
 # fast build rule for target.
-test_1/fast:
-	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_1.dir/build.make test/CMakeFiles/test_1.dir/build
-.PHONY : test_1/fast
+test_dt/fast:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_dt.dir/build.make test/CMakeFiles/test_dt.dir/build
+.PHONY : test_dt/fast
 
-1.o: 1.c.o
+# Convenience name for target.
+test/CMakeFiles/test_list.dir/rule:
+	cd /projects/libbase/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_list.dir/rule
+.PHONY : test/CMakeFiles/test_list.dir/rule
 
-.PHONY : 1.o
+# Convenience name for target.
+test_list: test/CMakeFiles/test_list.dir/rule
+
+.PHONY : test_list
+
+# fast build rule for target.
+test_list/fast:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_list.dir/build.make test/CMakeFiles/test_list.dir/build
+.PHONY : test_list/fast
+
+# Convenience name for target.
+test/CMakeFiles/test_mem.dir/rule:
+	cd /projects/libbase/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_mem.dir/rule
+.PHONY : test/CMakeFiles/test_mem.dir/rule
+
+# Convenience name for target.
+test_mem: test/CMakeFiles/test_mem.dir/rule
+
+.PHONY : test_mem
+
+# fast build rule for target.
+test_mem/fast:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_mem.dir/build.make test/CMakeFiles/test_mem.dir/build
+.PHONY : test_mem/fast
+
+# Convenience name for target.
+test/CMakeFiles/test_log.dir/rule:
+	cd /projects/libbase/build && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/test_log.dir/rule
+.PHONY : test/CMakeFiles/test_log.dir/rule
+
+# Convenience name for target.
+test_log: test/CMakeFiles/test_log.dir/rule
+
+.PHONY : test_log
+
+# fast build rule for target.
+test_log/fast:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/build
+.PHONY : test_log/fast
+
+dt.o: dt.c.o
+
+.PHONY : dt.o
 
 # target to build an object file
-1.c.o:
-	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_1.dir/build.make test/CMakeFiles/test_1.dir/1.c.o
-.PHONY : 1.c.o
+dt.c.o:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_dt.dir/build.make test/CMakeFiles/test_dt.dir/dt.c.o
+.PHONY : dt.c.o
 
-1.i: 1.c.i
+dt.i: dt.c.i
 
-.PHONY : 1.i
+.PHONY : dt.i
 
 # target to preprocess a source file
-1.c.i:
-	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_1.dir/build.make test/CMakeFiles/test_1.dir/1.c.i
-.PHONY : 1.c.i
+dt.c.i:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_dt.dir/build.make test/CMakeFiles/test_dt.dir/dt.c.i
+.PHONY : dt.c.i
 
-1.s: 1.c.s
+dt.s: dt.c.s
 
-.PHONY : 1.s
+.PHONY : dt.s
 
 # target to generate assembly for a file
-1.c.s:
-	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_1.dir/build.make test/CMakeFiles/test_1.dir/1.c.s
-.PHONY : 1.c.s
+dt.c.s:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_dt.dir/build.make test/CMakeFiles/test_dt.dir/dt.c.s
+.PHONY : dt.c.s
+
+list.o: list.c.o
+
+.PHONY : list.o
+
+# target to build an object file
+list.c.o:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_list.dir/build.make test/CMakeFiles/test_list.dir/list.c.o
+.PHONY : list.c.o
+
+list.i: list.c.i
+
+.PHONY : list.i
+
+# target to preprocess a source file
+list.c.i:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_list.dir/build.make test/CMakeFiles/test_list.dir/list.c.i
+.PHONY : list.c.i
+
+list.s: list.c.s
+
+.PHONY : list.s
+
+# target to generate assembly for a file
+list.c.s:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_list.dir/build.make test/CMakeFiles/test_list.dir/list.c.s
+.PHONY : list.c.s
+
+log.o: log.c.o
+
+.PHONY : log.o
+
+# target to build an object file
+log.c.o:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/log.c.o
+.PHONY : log.c.o
+
+log.i: log.c.i
+
+.PHONY : log.i
+
+# target to preprocess a source file
+log.c.i:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/log.c.i
+.PHONY : log.c.i
+
+log.s: log.c.s
+
+.PHONY : log.s
+
+# target to generate assembly for a file
+log.c.s:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/log.c.s
+.PHONY : log.c.s
+
+mem.o: mem.c.o
+
+.PHONY : mem.o
+
+# target to build an object file
+mem.c.o:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_mem.dir/build.make test/CMakeFiles/test_mem.dir/mem.c.o
+.PHONY : mem.c.o
+
+mem.i: mem.c.i
+
+.PHONY : mem.i
+
+# target to preprocess a source file
+mem.c.i:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_mem.dir/build.make test/CMakeFiles/test_mem.dir/mem.c.i
+.PHONY : mem.c.i
+
+mem.s: mem.c.s
+
+.PHONY : mem.s
+
+# target to generate assembly for a file
+mem.c.s:
+	cd /projects/libbase/build && $(MAKE) -f test/CMakeFiles/test_mem.dir/build.make test/CMakeFiles/test_mem.dir/mem.c.s
+.PHONY : mem.c.s
 
 # Help Target
 help:
@@ -159,11 +285,23 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
+	@echo "... test_dt"
+	@echo "... test_list"
 	@echo "... edit_cache"
-	@echo "... test_1"
-	@echo "... 1.o"
-	@echo "... 1.i"
-	@echo "... 1.s"
+	@echo "... test_mem"
+	@echo "... test_log"
+	@echo "... dt.o"
+	@echo "... dt.i"
+	@echo "... dt.s"
+	@echo "... list.o"
+	@echo "... list.i"
+	@echo "... list.s"
+	@echo "... log.o"
+	@echo "... log.i"
+	@echo "... log.s"
+	@echo "... mem.o"
+	@echo "... mem.i"
+	@echo "... mem.s"
 .PHONY : help
 
 

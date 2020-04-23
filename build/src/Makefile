@@ -110,6 +110,129 @@ depend:
 	cd /projects/libbase/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+# Convenience name for target.
+src/CMakeFiles/base.dir/rule:
+	cd /projects/libbase/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/base.dir/rule
+.PHONY : src/CMakeFiles/base.dir/rule
+
+# Convenience name for target.
+base: src/CMakeFiles/base.dir/rule
+
+.PHONY : base
+
+# fast build rule for target.
+base/fast:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/build
+.PHONY : base/fast
+
+dt.o: dt.c.o
+
+.PHONY : dt.o
+
+# target to build an object file
+dt.c.o:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/dt.c.o
+.PHONY : dt.c.o
+
+dt.i: dt.c.i
+
+.PHONY : dt.i
+
+# target to preprocess a source file
+dt.c.i:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/dt.c.i
+.PHONY : dt.c.i
+
+dt.s: dt.c.s
+
+.PHONY : dt.s
+
+# target to generate assembly for a file
+dt.c.s:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/dt.c.s
+.PHONY : dt.c.s
+
+list.o: list.c.o
+
+.PHONY : list.o
+
+# target to build an object file
+list.c.o:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/list.c.o
+.PHONY : list.c.o
+
+list.i: list.c.i
+
+.PHONY : list.i
+
+# target to preprocess a source file
+list.c.i:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/list.c.i
+.PHONY : list.c.i
+
+list.s: list.c.s
+
+.PHONY : list.s
+
+# target to generate assembly for a file
+list.c.s:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/list.c.s
+.PHONY : list.c.s
+
+log.o: log.c.o
+
+.PHONY : log.o
+
+# target to build an object file
+log.c.o:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/log.c.o
+.PHONY : log.c.o
+
+log.i: log.c.i
+
+.PHONY : log.i
+
+# target to preprocess a source file
+log.c.i:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/log.c.i
+.PHONY : log.c.i
+
+log.s: log.c.s
+
+.PHONY : log.s
+
+# target to generate assembly for a file
+log.c.s:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/log.c.s
+.PHONY : log.c.s
+
+mem.o: mem.c.o
+
+.PHONY : mem.o
+
+# target to build an object file
+mem.c.o:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/mem.c.o
+.PHONY : mem.c.o
+
+mem.i: mem.c.i
+
+.PHONY : mem.i
+
+# target to preprocess a source file
+mem.c.i:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/mem.c.i
+.PHONY : mem.c.i
+
+mem.s: mem.c.s
+
+.PHONY : mem.s
+
+# target to generate assembly for a file
+mem.c.s:
+	cd /projects/libbase/build && $(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/mem.c.s
+.PHONY : mem.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -118,6 +241,19 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... base"
+	@echo "... dt.o"
+	@echo "... dt.i"
+	@echo "... dt.s"
+	@echo "... list.o"
+	@echo "... list.i"
+	@echo "... list.s"
+	@echo "... log.o"
+	@echo "... log.i"
+	@echo "... log.s"
+	@echo "... mem.o"
+	@echo "... mem.i"
+	@echo "... mem.s"
 .PHONY : help
 
 

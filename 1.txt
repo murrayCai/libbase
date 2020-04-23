@@ -1,0 +1,19 @@
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /projects/libbase/build
+[ 38%] Built target base
+[ 53%] Built target test_dt
+Scanning dependencies of target test_list
+[ 61%] Building C object test/CMakeFiles/test_list.dir/list.c.o
+*** Error code 1
+
+Stop.
+make[2]: stopped in /projects/libbase/build
+*** Error code 1
+
+Stop.
+make[1]: stopped in /projects/libbase/build
+*** Error code 1
+
+Stop.
+make: stopped in /projects/libbase/build

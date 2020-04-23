@@ -111,17 +111,69 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test_1
+# Target rules for targets named base
 
 # Build rule for target.
-test_1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_1
-.PHONY : test_1
+base: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 base
+.PHONY : base
 
 # fast build rule for target.
-test_1/fast:
-	$(MAKE) -f test/CMakeFiles/test_1.dir/build.make test/CMakeFiles/test_1.dir/build
-.PHONY : test_1/fast
+base/fast:
+	$(MAKE) -f src/CMakeFiles/base.dir/build.make src/CMakeFiles/base.dir/build
+.PHONY : base/fast
+
+#=============================================================================
+# Target rules for targets named test_dt
+
+# Build rule for target.
+test_dt: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_dt
+.PHONY : test_dt
+
+# fast build rule for target.
+test_dt/fast:
+	$(MAKE) -f test/CMakeFiles/test_dt.dir/build.make test/CMakeFiles/test_dt.dir/build
+.PHONY : test_dt/fast
+
+#=============================================================================
+# Target rules for targets named test_list
+
+# Build rule for target.
+test_list: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_list
+.PHONY : test_list
+
+# fast build rule for target.
+test_list/fast:
+	$(MAKE) -f test/CMakeFiles/test_list.dir/build.make test/CMakeFiles/test_list.dir/build
+.PHONY : test_list/fast
+
+#=============================================================================
+# Target rules for targets named test_mem
+
+# Build rule for target.
+test_mem: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_mem
+.PHONY : test_mem
+
+# fast build rule for target.
+test_mem/fast:
+	$(MAKE) -f test/CMakeFiles/test_mem.dir/build.make test/CMakeFiles/test_mem.dir/build
+.PHONY : test_mem/fast
+
+#=============================================================================
+# Target rules for targets named test_log
+
+# Build rule for target.
+test_log: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_log
+.PHONY : test_log
+
+# fast build rule for target.
+test_log/fast:
+	$(MAKE) -f test/CMakeFiles/test_log.dir/build.make test/CMakeFiles/test_log.dir/build
+.PHONY : test_log/fast
 
 # Help Target
 help:
@@ -131,7 +183,11 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... test_1"
+	@echo "... base"
+	@echo "... test_dt"
+	@echo "... test_list"
+	@echo "... test_mem"
+	@echo "... test_log"
 .PHONY : help
 
 
