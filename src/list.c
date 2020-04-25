@@ -10,6 +10,10 @@ struct list_item_s{
     list_item_t *next;
 };
 
+int list_free_defult(void *data){
+    free(data);
+    return 0;
+}
 
 list_t *list_init(list_free_f f){
     list_t *list = MALLOC_T(list_t);
@@ -134,3 +138,18 @@ int list_del(list_t *list,void *data){
 
     return 0;
 }
+
+int list_for(list_t *list,list_for_f callback){
+    CHECK_PARAM(NULL!=list);
+    CHECK_PARAM(NULL!=callback);
+    int index = 0;
+    list_item_t *curr = (list_item_t *)list->head;
+    list_item_t *next = NULL;
+    while(curr){
+        next = curr->next;
+        RETURN_VAL_IF_FAIL(0 == callback(curr->data,index++),ERR_LIST_FOR_F);
+        curr = next;
+    }
+    return 0;
+}
+

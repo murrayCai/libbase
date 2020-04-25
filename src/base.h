@@ -3,13 +3,14 @@
 
 #include <stdio.h>
 #include <time.h>
-
-#define uint unsigned int
+#include <sys/types.h>
+// #define uint unsigned int
 
 typedef enum{
     ERR_NONE,
     ERR_PARAMS,
     ERR_MALLOC_NULL,
+    ERR_LIST_FOR_F
 }err_e;
 
 char *now_str();
@@ -61,7 +62,7 @@ int _log(log_lv_e lv,const char *file,int line,const char *fmt,...);
 #define RETURN_IF_CHECK_FAIL(expr)\
     do{\
         if(!(expr)){\
-            _log(LOG_LV_DEBUG,__FILE__,__LINE__,"check (%s) failed!",#expr);\
+            _log(LOG_LV_DEBUG,__FILE__,__LINE__,"check (%s) failed!\n",#expr);\
             return;\
         }\
     }while(0)
@@ -69,7 +70,7 @@ int _log(log_lv_e lv,const char *file,int line,const char *fmt,...);
 #define RETURN_NULL_IF_CHECK_FAIL(expr) \
     do{\
         if(!(expr)){\
-            _log(LOG_LV_DEBUG,__FILE__,__LINE__,"check (%s) failed!",#expr);\
+            _log(LOG_LV_DEBUG,__FILE__,__LINE__,"check (%s) failed!\n",#expr);\
             return NULL;\
         }\
     }while(0)
@@ -77,7 +78,7 @@ int _log(log_lv_e lv,const char *file,int line,const char *fmt,...);
 #define RETURN_VAL_IF_CHECK_FAIL(expr,val) \
     do{\
         if(!(expr)){\
-            _log(LOG_LV_DEBUG,__FILE__,__LINE__,"check (%s) failed!",#expr);\
+            _log(LOG_LV_DEBUG,__FILE__,__LINE__,"check (%s) failed!\n",#expr);\
             return (val);\
         }\
     }while(0)
@@ -92,6 +93,7 @@ typedef enum{
     MI_ptr_t,
     MI_str,
     MI_arr_t,
+    MI_kv_t,
     MI_list_item_t,
     MI_list_t,
     MI_uri_t,
@@ -147,19 +149,15 @@ struct list_s{
     void *tail;
     list_free_f free;
 };
-
+int list_free_defult(void *data);
 list_t *list_init(list_free_f f);
 int list_free(list_t *list);
-
 int list_add(list_t *list,void *data);
-
 int list_insert(list_t *list,void *data,unsigned int index);
-
 void *list_index(list_t *list,unsigned int index);
-
 int list_del(list_t *list,void *data);
-
-
+typedef int (*list_for_f)(void *data,uint index);
+int list_for(list_t *list,list_for_f callback);
 /* arr ptr */
 
 typedef void * ptr_t;
@@ -174,4 +172,11 @@ arr_t *arr_init(uint count);
 void arr_free(arr_t *arr);
 int arr_add(arr_t *arr,void *data);
 void *arr_index(arr_t *arr,uint index);
+
+/* key val */
+typedef struct kv_s kv_t;
+struct kv_s{
+    char *key;
+    char *val;
+};
 #endif

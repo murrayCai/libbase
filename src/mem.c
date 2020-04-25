@@ -45,8 +45,10 @@ void mem_show(){
 }
 
 void mem_finish(){
-    if(NULL!=mItems) 
+    if(NULL!=mItems){
         free(mItems);
+        mItems = NULL;
+    } 
 }
 
 void *malloc_t(size_t size,mi_e index,const char *name){

@@ -2,16 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "../src/base.h"
-
-typedef struct kv_s kv_t;
-struct kv_s{
-    const char *key;
-    const char *val;
-};
+#include <base.h>
 
 int lfree(void *data){
     free(data);
+    return 0;
+}
+
+int lfor(void *data,uint index){
+    kv_t *d = (kv_t *)data;
+    printf("[%d]\tkey=%s\tval=%s\n",index,d->key,d->val);
     return 0;
 }
 
@@ -33,6 +33,9 @@ int main(int argc,char *argv[]){
     // printf("%p\t%p\t%s\t%s\n",d,kv,d->key,d->val);
     
     assert(kv == list_index(l,0));
+
+    list_for(l,lfor);
+
     list_free(l);
     return 0;
 }
