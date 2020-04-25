@@ -21,3 +21,4 @@ itest
 test_*
 *.tmp
 *.core
+*.txt
