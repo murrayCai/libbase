@@ -3,38 +3,46 @@
 #include <string.h>
 #include "base.h"
 
+#define C_ARR_PARAM(expr) CHECK_PARAM((expr),MODULE_ARR)
 
-arr_t *arr_init(uint count){
-    arr_t *arr = MALLOC_T(arr_t);
-    RETURN_NULL_IF_FAIL(NULL!=arr);
+int arr_init(arr_t **pptr,uint count){
+    C_ARR_PARAM(NULL != pptr);
 
-    ptr_t *data = MALLOC_TN(ptr_t,count);
-    if(NULL == data){
-        FREE_T(arr,arr_t);
-        return NULL;
-    }
-    arr->data = data;
-    arr->count = count;
-    return arr;
+    C_ARR_PARAM(0 < count);
+    CC(MALLOC_T(pptr,arr_t));
+
+    ptr_t *data = NULL;
+
+    CCB(MALLOC_TN(&data,ptr_t,count),({
+        FREE_T(pptr,arr_t);
+    }));
+
+    (*pptr)->data = data;
+    (*pptr)->count = count;
+    return 0;
 }
 
-void arr_free(arr_t *arr){
-    CHECK_PARAM_VOID(NULL!=arr);
-    if(NULL!=arr->data){
-        FREE_TN(arr->data,ptr_t,arr->count);
+int arr_free(arr_t **pp){
+    C_ARR_PARAM(NULL != pp);
+    C_ARR_PARAM(NULL != *pp);
+
+    arr_t *arr = *pp;
+    if(NULL != arr->data){
+        CC(FREE_TN(&(arr->data),ptr_t,arr->count));
     }
-    FREE_T(arr,arr_t);
+    CC(FREE_T(pp,arr_t));
+    return 0;
 }
 
 int arr_add(arr_t *arr,void *data){
-    CHECK_PARAM(NULL != arr);
-    CHECK_PARAM(NULL != data);
+    C_ARR_PARAM(NULL != arr);
+    C_ARR_PARAM(NULL != data);
 
     if(arr->used >= arr->count){
-        ptr_t *d = MALLOC_TN(ptr_t,arr->count * 2);
-        RETURN_VAL_IF_FAIL(NULL!=d,ERR_MALLOC_NULL);
+        ptr_t *d = NULL;
+        CC(MALLOC_TN(&d,ptr_t,arr->count * 2));
         memcpy(d,arr->data,arr->count * sizeof(ptr_t));
-        FREE_TN(arr->data,ptr_t,arr->count);
+        CC(FREE_TN(&(arr->data),ptr_t,arr->count));
         arr->count *= 2;
         arr->data = d;
     }
@@ -43,7 +51,10 @@ int arr_add(arr_t *arr,void *data){
     return 0;
 }
 
-void *arr_index(arr_t *arr,uint index){
-    CHECK_PARAM_NULL(index < arr->used);
-    return arr->data[index];
+int arr_index(void **dst,arr_t *arr,uint index){
+    C_ARR_PARAM(NULL != arr);
+    C_ARR_PARAM(NULL != dst);
+    C_ARR_PARAM(index < arr->used);
+    *dst = arr->data[index];
+    return 0;
 }

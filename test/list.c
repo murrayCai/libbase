@@ -9,7 +9,7 @@ int lfree(void *data){
     return 0;
 }
 
-int lfor(void *data,uint index){
+int lfor(void *data,uint index,void **userData){
     kv_t *d = (kv_t *)data;
     printf("[%d]\tkey=%s\tval=%s\n",index,d->key,d->val);
     return 0;
@@ -17,25 +17,23 @@ int lfor(void *data,uint index){
 
 int main(int argc,char *argv[]){
     list_t *l = NULL;
-    l = list_init(lfree); 
-    mem_show();
+    CC_LOG(list_init(&l,lfree),"list_init failed!\n"); 
 
-    kv_t *kv = malloc(sizeof(kv_t));
-    memset(kv,0,sizeof(kv_t));
+    kv_t *kv = NULL;
+    CC_LOG(MALLOC_T(&kv,kv_t),"malloc kv_t failed!\n");
     kv->key = "key";
     kv->val = "val";
 
     assert(0 == list_add(l,kv));
     assert(1 == l->size);
-    kv_t *d = list_index(l,0);
-    assert(NULL != d);
+    kv_t *d = NULL;
+    CC_LOG(list_index((void **)&d,l,0),"list_index failed!\n");
     
-    // printf("%p\t%p\t%s\t%s\n",d,kv,d->key,d->val);
-    
-    assert(kv == list_index(l,0));
+    assert(kv == d);
 
-    list_for(l,lfor);
-
-    list_free(l);
+    CC_LOG(list_for(l,lfor,NULL),"list_for failed!\n");
+    CC_LOG(list_free(&l),"list_free failed!\n");
+    CC_LOG(FREE_T(&kv,kv_t),"free kv_t failed!\n");
+    mem_show();
     return 0;
 }

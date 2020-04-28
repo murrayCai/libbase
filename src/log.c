@@ -5,7 +5,6 @@
 
 FILE * f = NULL;
 
-
 int _log(log_lv_e lv,const char *file,int line,const char *fmt,...){
     if(NULL == f) f = stdout;
 

@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 #include "../src/base.h"
 
 int f1(){
-    RETURN_VAL_IF_CHECK_FAIL(1==0,1);
+    CHECK_PARAM(1 == 0,1);
     return 0;
 }
+
 
 int main(int argc,char *argv[]){
     LOGD("test debug!\n");
@@ -14,7 +16,7 @@ int main(int argc,char *argv[]){
     LOGW("test warn!\n");
     LOGE("test error!\n");
 
-    assert(1 == f1());
+    printf("%d\n%d",ERRNO(ERR_PARAM,1), f1());
 
     return 0;
 }
