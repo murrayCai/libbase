@@ -5,18 +5,23 @@
 #include "../src/base.h"
 
 int f1(){
-    CHECK_PARAM(1 == 0,1);
+    M(1 != 0,1);
     return 0;
 }
 
 
 int main(int argc,char *argv[]){
-    LOGD("test debug!\n");
+    LOGD("test debug,%d!\n",1==2);
     LOGI("test info!\n");
     LOGW("test warn!\n");
     LOGE("test error!\n");
 
-    printf("%d\n%d",ERRNO(ERR_PARAM,1), f1());
+    int test = 10;
+    GC(f1(),({printf("test:%d\n",test);}),end);
+    RC(f1(),({printf("test:%d\n",test);}));
+
+end:
+    printf("%d\n%d\n",ERRNO(ERR_PARAM,1), f1());
 
     return 0;
 }

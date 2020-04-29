@@ -6,14 +6,14 @@
 int main(int argc,char *argv[]){
     
     char *str = NULL;
-    CC(MALLOC_S(&str,64));
+    R(MALLOC_S(&str,64));
     assert(NULL != str);
 
     FREE_S(&str,64);
     assert(NULL == str);
 
     list_t *list = NULL;
-    CC(MALLOC_T(&list,list_t));
+    R(MALLOC_T(&list,list_t));
     assert(NULL != list);
 
     FREE_T(&list,list_t);

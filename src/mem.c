@@ -4,14 +4,12 @@
 #include <assert.h>
 #include "base.h"
 
-#define C_MEM(exp,code) _CHECK((exp),code,MODULE_MEM)
-#define C_MEM_MALLOC(ptr) CHECK_MALLOC((ptr),MODULE_MEM)
-#define C_MEM_PARAM(exp) CHECK_PARAM((exp),MODULE_MEM) 
+#define M_MEM(expr) M((expr),MODULE_MEM)
 
 #define MALLOC(ptr,size) \
     do{\
         (ptr) = malloc(size);\
-        C_MEM_MALLOC(ptr);\
+        M_MEM(NULL == ptr);\
         memset(ptr,0,size);\
     }while(0)
 
@@ -40,7 +38,7 @@ static int mem_init(){
 }
 
 int mem_show(){
-    C_MEM_PARAM(NULL!=mItems);
+    M_MEM(NULL == mItems);
     int i = 0;
     // name used(mCount/fCount) total
     const char *fmt = "%s\t%u(%u/%u)\t%u\n";
@@ -63,10 +61,10 @@ int mem_finish(){
 }
 
 int malloc_t(void **pptr,size_t size,mi_e index,const char *name){
-    C_MEM_PARAM(NULL != pptr);
-    C_MEM_PARAM(NULL != name);
-    C_MEM_PARAM(0 < size);
-    C_MEM_PARAM(index > 0 && index < MI_MAX);
+    M_MEM(NULL == pptr);
+    M_MEM(NULL == name);
+    M_MEM(0 >= size);
+    M_MI(index,MODULE_MEM);
 
     if(NULL == mItems) mem_init();
 
@@ -86,11 +84,12 @@ int malloc_t(void **pptr,size_t size,mi_e index,const char *name){
 int malloc_tn(void **pptr,size_t count,
         size_t size,mi_e index,const char *name)
 {
-    C_MEM_PARAM(NULL != pptr);
-    C_MEM_PARAM(NULL != name);
-    C_MEM_PARAM(0 < size);
-    C_MEM_PARAM(0 < count);
-    C_MEM_PARAM(index > 0 && index < MI_MAX);
+    M_MEM(NULL == pptr);
+    M_MEM(NULL == name);
+    M_MEM(0 >= size);
+    M_MEM(0 >= count);
+    M_MI(index,MODULE_MEM);
+
     if(NULL==mItems) mem_init();
 
     size_t total = size * count;
@@ -107,9 +106,9 @@ int malloc_tn(void **pptr,size_t count,
 }
 
 int free_t(void **pptr,size_t size,mi_e index){
-    C_MEM_PARAM(NULL != pptr);
-    C_MEM_PARAM(0 < size);
-    C_MEM_PARAM(index > 0 && index < MI_MAX);
+    M_MEM(NULL == pptr);
+    M_MEM(0 >= size);
+    M_MI(index,MODULE_MEM);
     if(NULL != *pptr){
         free(*pptr);
         mItems[index].fCount++;
@@ -122,10 +121,10 @@ int free_t(void **pptr,size_t size,mi_e index){
 }
 
 int free_tn(void **pptr,size_t count,size_t size,mi_e index){
-    C_MEM_PARAM(NULL != pptr);
-    C_MEM_PARAM(0 < size);
-    C_MEM_PARAM(0 < count);
-    C_MEM_PARAM(index > 0 && index < MI_MAX);
+    M_MEM(NULL == pptr);
+    M_MEM(0 >= size);
+    M_MEM(0 >= count);
+    M_MI(index,MODULE_MEM);
     if(NULL != *pptr){
         free(*pptr);
         uint total = size * count;

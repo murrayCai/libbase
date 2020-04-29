@@ -29,41 +29,105 @@ typedef enum{
 #define ERRNO(code,module) \
     ((code) + 1000 * (__LINE__) + 10000000 * (module))
 
-#define _CHECK(exp,code,module)\
+// check expr/call + m
+#define _R(expr,code,module)\
     do{\
-        if(!(exp))\
-        return ERRNO((code),(module));\
+        if(expr) return ERRNO((code),(module));\
     }while(0)
 
-#define CHECK_PARAM(exp,module) _CHECK((exp),ERR_PARAM,(module))
-#define CHECK_MALLOC(ptr,module) _CHECK((NULL!=(ptr)),ERR_MALLOC,(module))
-
-// call fun1 failed then return fun1's return code
-#define CC(func1)\
+#define _RL(expr,code,module)\
     do{\
-        int ret = (func1);\
-        if(0 != ret) return ret;\
-    }while(0)
-
-// when call fun1 failed,then call fun2,return fun1's return code
-#define CCB(func1,func2)\
-    do{\
-        int ret = (func1);\
-        if(0 != ret){\
-            (func2);\
-            return ret;\
+        if(expr){\
+            LOGW("check (%s) failed!\n",#expr);\
+            return ERRNO((code),(module));\
         }\
+    }while(0)
+
+// return return the expr's code
+#define R(expr)\
+    do{\
+        int ret = (expr);\
+        if(ret) return ret;\
+    }while(0);
+
+// return module the expr's code
+#define M(expr,module) \
+    do{\
+        int ret = (expr);\
+        if(ret) return ERRNO(ret,(module));\
     }while(0)
 
 // when call func1 failed,then log warn about it
-#define CC_LOG(func1,fmt,...)\
+#define RL(expr,fmt,...)\
     do{\
-        int ret = (func1);\
-        if(0 != ret){\
-            LOGW(fmt,##__VA_ARGS__);\
-            LOGW("errno : %d\n",ret);\
+        int ret = (expr);\
+        LOGW(fmt,##__VA_ARGS__);\
+        LOGW("errno : %d\n",ret);\
+        if(0 != ret) return ret;\
+    }while(0);
+
+// when call fun1 failed,then call fun2,return fun1's return code
+#define RC(expr,func)\
+    do{\
+        int ret = (expr);\
+        if(ret){\
+            (func);\
             return ret;\
         }\
+    }while(0)
+
+// when call func filed,then goto tag
+#define G(expr,tag)\
+    do{\
+        if((expr)){\
+            goto tag;\
+        }\
+    }while(0)
+
+// when call func failed, then call fun2 and goto tag
+#define GC(expr,func,tag)\
+    do{\
+        if(expr){\
+            (func);\
+            goto tag;\
+        }\
+    }while(0)
+
+// if expr true then run func and log ,then goto tag
+#define GCL(expr,func,tag,fmt,...)\
+    do{\
+        if(expr){\
+            (func);\
+            LOGW(fmt,##__VA_ARGS__);\
+            goto tag;\
+        }\
+    }while(0)
+
+// return module expr's code and call func
+#define MC(expr,func,module)\
+    do{\
+        int ret = (expr);\
+        if(ret){\
+            (func);\
+            return ERRNO(ret,(module));\
+        }\
+    }while(0)
+
+// return module the expr's code and log it
+#define ML(expr,module,fmt,...)\
+    do{\
+        int ret = (expr);\
+        if(ret){\
+            LOGW(fmt,##__VA_ARGS__);\
+            LOGW("errno : %d\n",ret);\
+            return ERRNO(ret,(module));\
+        }\
+    }while(0)
+
+// log if expr's true 
+#define L(expr,fmt,...)\
+    do{\
+        if(expr) LOGW(fmt,##__VA_ARGS__);\
     }while(0)
 
 /* module log */
@@ -98,6 +162,12 @@ int _log(log_lv_e lv,const char *file,int line,const char *fmt,...);
 #define LOGE(fmt,...) \
     _log(LOG_LV_ERROR,__FILE__,__LINE__,fmt,##__VA_ARGS__)
 
+#define LEW(expr,fmt,...)\
+    do{\
+        if(!(expr)) LOGW(fmt,##__VA_ARGS__);\
+    }while(0);
+
+
 
 typedef enum{
     MI_mem,
@@ -119,8 +189,12 @@ typedef enum{
     MI_Uri__QueryEntry,
     MI_Request__FieldsEntry,
     MI_Header,
+    MI_app_t,
     MI_MAX
 }mi_e;
+
+#define M_MI(index,module)\
+    M((index) <= 0 || (index) >= MI_MAX,(module))
 
 
 /* memory */
