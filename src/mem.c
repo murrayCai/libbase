@@ -26,6 +26,7 @@ struct mem_item_s{
 mem_item_t *mItems = NULL;
 
 static int mem_init(){
+    int ret = 0;
     assert(MI_MAX > 1);
     size_t size = sizeof(mem_item_t) * MI_MAX;
     MALLOC(mItems,size);
@@ -38,6 +39,7 @@ static int mem_init(){
 }
 
 int mem_show(){
+    int ret = 0;
     M_MEM(NULL == mItems);
     int i = 0;
     // name used(mCount/fCount) total
@@ -61,6 +63,7 @@ int mem_finish(){
 }
 
 int malloc_t(void **pptr,size_t size,mi_e index,const char *name){
+    int ret = 0;
     M_MEM(NULL == pptr);
     M_MEM(NULL == name);
     M_MEM(0 >= size);
@@ -84,6 +87,7 @@ int malloc_t(void **pptr,size_t size,mi_e index,const char *name){
 int malloc_tn(void **pptr,size_t count,
         size_t size,mi_e index,const char *name)
 {
+    int ret = 0;
     M_MEM(NULL == pptr);
     M_MEM(NULL == name);
     M_MEM(0 >= size);
@@ -106,6 +110,7 @@ int malloc_tn(void **pptr,size_t count,
 }
 
 int free_t(void **pptr,size_t size,mi_e index){
+    int ret = 0;
     M_MEM(NULL == pptr);
     M_MEM(0 >= size);
     M_MI(index,MODULE_MEM);
@@ -121,6 +126,7 @@ int free_t(void **pptr,size_t size,mi_e index){
 }
 
 int free_tn(void **pptr,size_t count,size_t size,mi_e index){
+    int ret = 0;
     M_MEM(NULL == pptr);
     M_MEM(0 >= size);
     M_MEM(0 >= count);

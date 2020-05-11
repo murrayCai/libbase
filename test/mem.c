@@ -4,6 +4,7 @@
 #include "../src/base.h"
 
 int main(int argc,char *argv[]){
+    int ret = 0;
     
     char *str = NULL;
     R(MALLOC_S(&str,64));

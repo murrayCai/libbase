@@ -26,19 +26,28 @@ typedef enum{
     ERR_LIST_FOR_F
 }err_e;
 
+#define FUNCTION(name,body,...) \
+    int (name)(##__VA_ARGS__){ \
+        int ret = 0; \
+        (body); \
+        return ret;\
+    }
+
 #define ERRNO(code,module) \
     ((code) + 1000 * (__LINE__) + 10000000 * (module))
 
 // check expr/call + m
 #define _R(expr,code,module)\
     do{\
-        if(expr) return ERRNO((code),(module));\
+        ret = (expr);\
+        if(ret) return ERRNO((code),(module));\
     }while(0)
 
-#define _RL(expr,code,module)\
+#define _RL(expr,code,module,fmt,...)\
     do{\
-        if(expr){\
-            LOGW("check (%s) failed!\n",#expr);\
+        ret = (expr);\
+        if(ret){\
+            LOGW((fmt),##__VA_ARGS__);\
             return ERRNO((code),(module));\
         }\
     }while(0)
@@ -46,30 +55,31 @@ typedef enum{
 // return return the expr's code
 #define R(expr)\
     do{\
-        int ret = (expr);\
+        ret = (expr);\
         if(ret) return ret;\
     }while(0);
 
 // return module the expr's code
 #define M(expr,module) \
     do{\
-        int ret = (expr);\
+        ret = (expr);\
         if(ret) return ERRNO(ret,(module));\
     }while(0)
 
 // when call func1 failed,then log warn about it
 #define RL(expr,fmt,...)\
     do{\
-        int ret = (expr);\
-        LOGW(fmt,##__VA_ARGS__);\
-        LOGW("errno : %d\n",ret);\
-        if(0 != ret) return ret;\
+        ret = (expr);\
+        if(ret){\
+            LOGW(fmt,##__VA_ARGS__);\
+            return ret;\
+        }\
     }while(0);
 
 // when call fun1 failed,then call fun2,return fun1's return code
 #define RC(expr,func)\
     do{\
-        int ret = (expr);\
+        ret = (expr);\
         if(ret){\
             (func);\
             return ret;\
@@ -79,7 +89,8 @@ typedef enum{
 // when call func filed,then goto tag
 #define G(expr,tag)\
     do{\
-        if((expr)){\
+        ret = (expr);\
+        if(ret){\
             goto tag;\
         }\
     }while(0)
@@ -87,16 +98,27 @@ typedef enum{
 // when call func failed, then call fun2 and goto tag
 #define GC(expr,func,tag)\
     do{\
-        if(expr){\
+        ret = (expr);\
+        if(ret){\
             (func);\
             goto tag;\
+        }\
+    }while(0)
+
+// when call func failed, then goto error
+#define GE(expr)\
+    do{\
+        ret = (expr);\
+        if(ret){\
+            goto error;\
         }\
     }while(0)
 
 // if expr true then run func and log ,then goto tag
 #define GCL(expr,func,tag,fmt,...)\
     do{\
-        if(expr){\
+        ret = (expr);\
+        if(ret){\
             (func);\
             LOGW(fmt,##__VA_ARGS__);\
             goto tag;\
@@ -106,7 +128,7 @@ typedef enum{
 // return module expr's code and call func
 #define MC(expr,func,module)\
     do{\
-        int ret = (expr);\
+        ret = (expr);\
         if(ret){\
             (func);\
             return ERRNO(ret,(module));\
@@ -116,10 +138,9 @@ typedef enum{
 // return module the expr's code and log it
 #define ML(expr,module,fmt,...)\
     do{\
-        int ret = (expr);\
+        ret = (expr);\
         if(ret){\
             LOGW(fmt,##__VA_ARGS__);\
-            LOGW("errno : %d\n",ret);\
             return ERRNO(ret,(module));\
         }\
     }while(0)
@@ -127,7 +148,17 @@ typedef enum{
 // log if expr's true 
 #define L(expr,fmt,...)\
     do{\
-        if(expr) LOGW(fmt,##__VA_ARGS__);\
+        ret = (expr);\
+        if(ret) LOGW((fmt),##__VA_ARGS__);\
+    }while(0)
+
+#define LC(expr,func,fmt,...)\
+    do{\
+        ret = (expr);\
+        if(ret){\
+            LOGW((fmt),##__VA_ARGS__);\
+            (func);\
+        }\
     }while(0)
 
 /* module log */
@@ -177,18 +208,18 @@ typedef enum{
     MI_kv_t,
     MI_list_item_t,
     MI_list_t,
-    MI_cookie_t,
-    MI_uri_t,
-    MI_req_head_t,
-    MI_rsp_head_t,
     MI_request_t,
     MI_response_t,
     MI_http_t,
+    MI_file_t,
     MI_Request,
     MI_Uri,
     MI_Uri__QueryEntry,
     MI_Request__FieldsEntry,
+    MI_SSLInfo,
+    MI_File,
     MI_Header,
+    MI_Cookie,
     MI_app_t,
     MI_MAX
 }mi_e;

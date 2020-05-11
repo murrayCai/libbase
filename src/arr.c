@@ -6,6 +6,7 @@
 #define M_ARR(expr) M((expr),MODULE_ARR)
 
 int arr_init(arr_t **pptr,uint count){
+    int ret = 0;
     M_ARR(NULL == pptr);
 
     M_ARR(0 >= count);
@@ -23,6 +24,7 @@ int arr_init(arr_t **pptr,uint count){
 }
 
 int arr_free(arr_t **pp){
+    int ret = 0;
     M_ARR(NULL == pp);
     M_ARR(NULL == *pp);
 
@@ -35,6 +37,7 @@ int arr_free(arr_t **pp){
 }
 
 int arr_add(arr_t *arr,void *data){
+    int ret = 0;
     M_ARR(NULL == arr);
     M_ARR(NULL == data);
 
@@ -52,6 +55,7 @@ int arr_add(arr_t *arr,void *data){
 }
 
 int arr_index(void **dst,arr_t *arr,uint index){
+    int ret = 0;
     M_ARR(NULL == arr);
     M_ARR(NULL == dst);
     M_ARR(0 > index || index >= arr->used);

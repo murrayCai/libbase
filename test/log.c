@@ -5,12 +5,14 @@
 #include "../src/base.h"
 
 int f1(){
+    int ret = 0;
     M(1 != 0,1);
     return 0;
 }
 
 
 int main(int argc,char *argv[]){
+    int ret = 0;
     LOGD("test debug,%d!\n",1==2);
     LOGI("test info!\n");
     LOGW("test warn!\n");

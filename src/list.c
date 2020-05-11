@@ -18,6 +18,7 @@ int list_free_defult(void *data){
 }
 
 int list_init(list_t **l,list_free_f f){
+    int ret = 0;
     R(MALLOC_T(l,list_t));
     (*l)->free = f;
     return 0;
@@ -35,6 +36,7 @@ int list_init(list_t **l,list_free_f f){
     }while(0)
 
 int list_free(list_t **list){
+    int ret = 0;
     M_LIST(NULL == list);
     M_LIST(NULL == *list);
 
@@ -51,6 +53,7 @@ int list_free(list_t **list){
 }
 
 int list_add(list_t *list,void *data){
+    int ret = 0;
     M_LIST(NULL == list);
     M_LIST(NULL == data);
 
@@ -71,6 +74,7 @@ int list_add(list_t *list,void *data){
 }
 
 int list_insert(list_t *list,void *data,unsigned int index){
+    int ret = 0;
     M_LIST(NULL == list);
     M_LIST(NULL == data);
 
@@ -110,6 +114,7 @@ int list_insert(list_t *list,void *data,unsigned int index){
 }
 
 int list_index(void **dst,list_t *list,unsigned int index){
+    int ret = 0;
     M_LIST(NULL == list);
     M_LIST(NULL == dst);
     M_LIST(0 > index || index >= list->size);
@@ -128,6 +133,7 @@ int list_index(void **dst,list_t *list,unsigned int index){
 }
 
 int list_del(list_t *list,void *data){
+    int ret = 0;
     M_LIST(NULL == list);
     M_LIST(NULL == data);
 
@@ -150,6 +156,7 @@ int list_del(list_t *list,void *data){
 }
 
 int list_for(list_t *list,list_for_f callback,void **data){
+    int ret = 0;
     M_LIST(NULL == list);
     M_LIST(NULL == callback);
 
