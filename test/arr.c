@@ -2,8 +2,9 @@
 #include "base.h"
 
 int main(int argc,char *argv[]){
+    int ret = 0;
     arr_t *arr = NULL;
-    CC_LOG(arr_init(&arr,4),"malloc failed!\n");
+    RL(arr_init(&arr,4),"malloc failed!\n");
     assert(NULL != arr);
     assert(4 == arr->count);
 
@@ -19,18 +20,18 @@ int main(int argc,char *argv[]){
     assert(5 == arr->used);
     assert("test5" == arr->data[4]);
     char *str = NULL;
-    CC_LOG(arr_index((void **)&str,arr,0),"arr_index failed!\n");
+    RL(arr_index((void **)&str,arr,0),"arr_index failed!\n");
     assert("test1" == str);
     
-    CC_LOG(arr_index((void **)&str,arr,1),"arr_index failed!\n");
+    RL(arr_index((void **)&str,arr,1),"arr_index failed!\n");
     assert("test2" == str);
     
-    CC_LOG(arr_index((void **)&str,arr,2),"arr_index failed!\n");
+    RL(arr_index((void **)&str,arr,2),"arr_index failed!\n");
     assert("test3" == str);
 
     printf("compile success\n");
 
-    CC_LOG(arr_free(&arr),"arr_free failed!");
+    RL(arr_free(&arr),"arr_free failed!");
     assert(NULL == arr);
     mem_show();
     return 0;
