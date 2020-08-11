@@ -8,23 +8,16 @@
 #include <unistd.h>
 #include <time.h>
 #include <sys/types.h>
+#include "libbase_def.h"
+/*
+ * you should auto define mi_e
+typedef enum{
+    __MI_HEADERS_,
+    MI_MAX
+}mi_e;
+*/
 // #define uint unsigned int
 
-typedef enum{
-    MODULE_MEM,
-    MODULE_LOG,
-    MODULE_ARR,
-    MODULE_LIST,
-}module_e;
-
-typedef enum{
-    ERR_NONE,
-    ERR_PARAM,
-    ERR_PARAMS,
-    ERR_MALLOC,
-    ERR_MALLOC_NULL,
-    ERR_LIST_FOR_F
-}err_e;
 
 #define FUNCTION(name,body,...) \
     int (name)(##__VA_ARGS__){ \
@@ -199,7 +192,7 @@ int _log(log_lv_e lv,const char *file,int line,const char *fmt,...);
     }while(0);
 
 
-
+/*
 typedef enum{
     MI_mem,
     MI_ptr_t,
@@ -223,6 +216,7 @@ typedef enum{
     MI_app_t,
     MI_MAX
 }mi_e;
+*/
 
 #define M_MI(index,module)\
     M((index) <= 0 || (index) >= MI_MAX,(module))

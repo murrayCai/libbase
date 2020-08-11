@@ -2,5 +2,6 @@ cd ./build
 cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr .. 
 make
 cp ../src/base.h /usr/include
+cp ../src/libbase_def.h /usr/include/libbase_def.example
 cp ../libbase.a /usr/lib
 cd ..
