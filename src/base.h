@@ -10,11 +10,8 @@
 #include <sys/types.h>
 #include "libbase_def.h"
 /*
- * you should auto define mi_e
-typedef enum{
-    __MI_HEADERS_,
-    MI_MAX
-}mi_e;
+ * you should cp libbase_def.example libbase_def.h
+ * and change libbase_def.h for your app
 */
 // #define uint unsigned int
 
@@ -288,4 +285,24 @@ struct kv_s{
     char *key;
     char *val;
 };
+
+/* module date time */
+
+#define DT_GET_NOW_YEAR() \
+    ({\
+     time_t t = time(NULL);\
+     struct tm * dt = gmtime(&t);\
+     (dt->tm_year + 1900);\
+     })
+
+#define DT_GET_NOW_MONTH() \
+    ({\
+     time_t t = time(NULL);\
+     struct tm * dt = gmtime(&t);\
+     (dt->tm_mon + 1);\
+     })
+
+#define GET_DAYS_OF_CURRENT_MONTH() get_days_of_month(DT_GET_NOW_YEAR(),DT_GET_NOW_MONTH()) 
+
+int get_days_of_month(int year,int month);
 #endif
