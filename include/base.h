@@ -188,33 +188,6 @@ int _log(log_lv_e lv,const char *file,int line,const char *fmt,...);
         if(!(expr)) LOGW(fmt,##__VA_ARGS__);\
     }while(0);
 
-
-/*
-typedef enum{
-    MI_mem,
-    MI_ptr_t,
-    MI_str,
-    MI_arr_t,
-    MI_kv_t,
-    MI_list_item_t,
-    MI_list_t,
-    MI_request_t,
-    MI_response_t,
-    MI_http_t,
-    MI_file_t,
-    MI_Request,
-    MI_Uri,
-    MI_Uri__QueryEntry,
-    MI_Request__FieldsEntry,
-    MI_SSLInfo,
-    MI_File,
-    MI_Header,
-    MI_Cookie,
-    MI_app_t,
-    MI_MAX
-}mi_e;
-*/
-
 #define M_MI(index,module)\
     M((index) <= 0 || (index) >= MI_MAX,(module))
 
@@ -240,23 +213,22 @@ int mem_finish();
 
 
 /* list */
-typedef int (*list_free_f)(void *data);
-typedef struct list_s list_t;
-struct list_s{
+typedef int (*mc_list_free_f)(void *data);
+typedef struct mc_list_s{
     uint size;
     void *head;
     void *tail;
-    list_free_f free;
-};
-int list_free_defult(void *data);
-int list_init(list_t **list,list_free_f f);
-int list_free(list_t **list);
-int list_add(list_t *list,void *data);
-int list_insert(list_t *list,void *data,unsigned int index);
-int list_index(void **dst,list_t *list,unsigned int index);
-int list_del(list_t *list,void *data);
-typedef int (*list_for_f)(void *item,uint index,void **data);
-int list_for(list_t *list,list_for_f callback,void **data);
+    mc_list_free_f free;
+}mc_list_t;
+int mc_list_free_default(void *data);
+int mc_list_init(mc_list_t **list,mc_list_free_f f);
+int mc_list_free(mc_list_t **list);
+int mc_list_add(mc_list_t *list,void *data);
+int mc_list_insert(mc_list_t *list,void *data,unsigned int index);
+int mc_list_index(void **dst,mc_list_t *list,unsigned int index);
+int mc_list_del(mc_list_t *list,void *data);
+typedef int (*mc_list_for_f)(void *item,uint index,void **data);
+int mc_list_for(mc_list_t *list,mc_list_for_f callback,void **data);
 /* arr ptr */
 
 typedef void * ptr_t;

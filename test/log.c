@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "../src/base.h"
+#include "base.h"
 
 int f1(){
     int ret = 0;

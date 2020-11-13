@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "../src/base.h"
+#include "base.h"
 
 int main(int argc,char *argv[]){
     int ret = 0;
@@ -13,11 +13,11 @@ int main(int argc,char *argv[]){
     FREE_S(&str,64);
     assert(NULL == str);
 
-    list_t *list = NULL;
-    R(MALLOC_T(&list,list_t));
+    mc_list_t *list = NULL;
+    R(MALLOC_T(&list,mc_list_t));
     assert(NULL != list);
 
-    FREE_T(&list,list_t);
+    FREE_T(&list,mc_list_t);
     assert(NULL == list);;
 
     mem_show();
