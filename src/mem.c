@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "base.h"
+#include "mc.h"
 
 #define M_MEM(expr) M((expr),MODULE_MEM)
 
