@@ -7,7 +7,7 @@
 #define M(expr,module) \
     do{\
         ret = (expr);\
-        if(ret) return ERRNO(ret,(module));\
+        if(ret) __R(ERRNO(ret,(module)));\
     }while(0)
 
 // return module expr's code and call func
@@ -16,7 +16,7 @@
         ret = (expr);\
         if(ret){\
             (func);\
-            return ERRNO(ret,(module));\
+            __R(ERRNO(ret,(module)));\
         }\
     }while(0)
 
@@ -35,7 +35,7 @@
         ret = (expr);\
         if(ret){\
             LOGW(fmt,##__VA_ARGS__);\
-            return ERRNO(ret,(module));\
+            __R( ERRNO(ret,(module)) );\
         }\
     }while(0)
 

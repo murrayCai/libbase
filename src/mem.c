@@ -4,82 +4,61 @@
 #include <assert.h>
 #include "mc.h"
 
-#define M_MEM(expr) M((expr),MODULE_MEM)
+#ifdef MODULE_CURR
+#undef MODULE_CURR
+#define MODULE_CURR MODULE_MEM
+#endif
+
 
 #define MALLOC(ptr,size) \
     do{\
         (ptr) = malloc(size);\
-        M_MEM(NULL == ptr);\
+        R(NULL == ptr);\
         memset(ptr,0,size);\
     }while(0)
 
-typedef struct mem_item_s mem_item_t;
-struct mem_item_s{
-    const char *name;
-    uint used;
-//    uint uCount;
-    uint mCount;
-    uint fCount;
-    uint mTotal;
-};
-
-mem_item_t *mItems = NULL;
-
-static int mem_init(){
-    int ret = 0;
-    assert(MI_MAX > 1);
-    size_t size = sizeof(mem_item_t) * MI_MAX;
-    MALLOC(mItems,size);
-    mItems[0].name = "mem_item_t";
-    mItems[0].used = size;
-    mItems[0].mCount = 1;
-    mItems[0].fCount = 0;
-    mItems[0].mTotal = size;
-    return 0;
-}
-
 int mem_show(){
     int ret = 0;
-    M_MEM(NULL == mItems);
+    MC_INIT();
     int i = 0;
     // name used(mCount/fCount) total
     const char *fmt = "%s\t%u(%u/%u)\t%u\n";
     printf("\n=================MEM USAGE===============\n");
     printf("NAME\t\tUSED(mCount/fCount)\ttotal\n");
     for(;i<MI_MAX;i++){
-        printf(fmt,mItems[i].name,mItems[i].used,mItems[i].mCount,
-                mItems[i].fCount,mItems[i].mTotal);
+        printf(fmt,mc->mItems[i].name,mc->mItems[i].used,mc->mItems[i].mCount,
+                mc->mItems[i].fCount,mc->mItems[i].mTotal);
     }
     printf("=================   END   ===============\n\n");
     return 0;
 }
 
 int mem_finish(){
-    if(NULL != mItems){
-        free(mItems);
-        mItems = NULL;
+    if(NULL != mc->mItems){
+        free(mc->mItems);
+        mc->mItems = NULL;
     } 
     return 0;
 }
 
 int malloc_t(void **pptr,size_t size,mi_e index,const char *name){
     int ret = 0;
-    M_MEM(NULL == pptr);
-    M_MEM(NULL == name);
-    M_MEM(0 >= size);
-    M_MI(index,MODULE_MEM);
+    R(NULL == pptr);
+    R(NULL == name);
+    R(0 >= size);
+    R(MI_CHECK(index));
 
-    if(NULL == mItems) mem_init();
+    MC_INIT();
 
     MALLOC(*pptr,size);
 
-    mItems[index].name = name;
-    mItems[index].mCount++;
-    mItems[index].mTotal += size;
-    mItems[index].used += size;
-    mItems[0].mCount++;
-    mItems[0].used += size;
-    mItems[0].mTotal += size;
+    mc->mItems[index].name = name;
+    mc->mItems[index].mCount++;
+    mc->mItems[index].mTotal += size;
+    mc->mItems[index].used += size;
+    mc->mItems[MI_mem_item_t].mCount++;
+    mc->mItems[MI_mem_item_t].used += size;
+    mc->mItems[MI_mem_item_t].mTotal += size;
 
     return 0;
 }
@@ -88,38 +67,69 @@ int malloc_tn(void **pptr,size_t count,
         size_t size,mi_e index,const char *name)
 {
     int ret = 0;
-    M_MEM(NULL == pptr);
-    M_MEM(NULL == name);
-    M_MEM(0 >= size);
-    M_MEM(0 >= count);
-    M_MI(index,MODULE_MEM);
-
-    if(NULL==mItems) mem_init();
+    R(NULL == pptr);
+    R(NULL != *pptr);
+    R(NULL == name);
+    R(0 >= size);
+    R(0 >= count);
+    R(MI_CHECK(index));
+    MC_INIT();
 
     size_t total = size * count;
     MALLOC(*pptr,total);
 
-    mItems[index].name = name;
-    mItems[index].mCount++;
-    mItems[index].mTotal+=total;
-    mItems[index].used+=total;
-    mItems[0].mCount++;
-    mItems[0].used+=total;
-    mItems[0].mTotal+=total;
+    mc->mItems[index].name = name;
+    mc->mItems[index].mCount++;
+    mc->mItems[index].mTotal+=total;
+    mc->mItems[index].used+=total;
+    mc->mItems[MI_mem_item_t].mCount++;
+    mc->mItems[MI_mem_item_t].used+=total;
+    mc->mItems[MI_mem_item_t].mTotal+=total;
     return 0;
+}
+
+int realloc_tn(void **pptr,size_t *pCount,
+        size_t size,mi_e index,const char *name){
+    int ret = 0;
+    R(NULL == pptr);
+    R(NULL == *pptr);
+    R(NULL == name);
+    R(0 >= size);
+    R(NULL == pCount);
+    R(0 >= (*pCount));
+    R(MI_CHECK(index));
+    MC_INIT();
+
+    size_t newMalloc = size * (*pCount);
+    size_t total = size * (*pCount) * 2;
+    void * ptr = realloc(*pptr,total);
+    R(NULL == ptr);
+    *pptr = ptr;
+    (*pCount) *= 2;
+
+    mc->mItems[index].name = name;
+    mc->mItems[index].rCount++;
+    mc->mItems[index].mTotal += newMalloc;
+    mc->mItems[index].used += newMalloc;
+    mc->mItems[MI_mem_item_t].mCount++;
+    mc->mItems[MI_mem_item_t].used += newMalloc;
+    mc->mItems[MI_mem_item_t].mTotal += newMalloc;
+
+    return ret;
 }
 
 int free_t(void **pptr,size_t size,mi_e index){
     int ret = 0;
-    M_MEM(NULL == pptr);
-    M_MEM(0 >= size);
-    M_MI(index,MODULE_MEM);
+    R(NULL == pptr);
+    R(0 >= size);
+    R(MI_CHECK(index));
     if(NULL != *pptr){
+        memset(*pptr,0,size);
         free(*pptr);
-        mItems[index].fCount++;
-        mItems[index].used-=size;
-        mItems[0].fCount++;
-        mItems[0].used-=size;
+        mc->mItems[index].fCount++;
+        mc->mItems[index].used-=size;
+        mc->mItems[MI_mem_item_t].fCount++;
+        mc->mItems[MI_mem_item_t].used-=size;
         *pptr = NULL;
     }
     return 0;
@@ -127,17 +137,17 @@ int free_t(void **pptr,size_t size,mi_e index){
 
 int free_tn(void **pptr,size_t count,size_t size,mi_e index){
     int ret = 0;
-    M_MEM(NULL == pptr);
-    M_MEM(0 >= size);
-    M_MEM(0 >= count);
-    M_MI(index,MODULE_MEM);
+    R(NULL == pptr);
+    R(0 >= size);
+    R(0 >= count);
+    R(MI_CHECK(index));
     if(NULL != *pptr){
         free(*pptr);
         uint total = size * count;
-        mItems[index].fCount++;
-        mItems[index].used -= total ;
-        mItems[0].fCount++;
-        mItems[0].used -= total;
+        mc->mItems[index].fCount++;
+        mc->mItems[index].used -= total ;
+        mc->mItems[MI_mem_item_t].fCount++;
+        mc->mItems[MI_mem_item_t].used -= total;
         *pptr = NULL;
     }
     return 0;

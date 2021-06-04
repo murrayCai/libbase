@@ -1,1 +1,2 @@
-add_library(mc dt.c log.c mem.c list.c arr.c)
+aux_source_directory(. cfiles)
+add_library(mc ${cfiles})

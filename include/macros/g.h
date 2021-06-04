@@ -3,177 +3,206 @@
 #include "base.h"
 // types : G / E /  M  /  C  / L
 // when call func filed,then goto tag
-#define G(expr,tag) \
-    do{ret = (expr); if(ret) goto tag; }while(0)
-
+#define G(expr,tag) if(__CHECK(expr)) goto tag
 
 // when call func failed, then goto error
-#define GE(expr) \
-    do{ ret = (expr); if(ret) goto error; }while(0)
+#define G_E(expr) if(__CHECK(expr)) goto error
 
 // when call func failed, then call fun2 and goto tag
-#define GC(expr,tag,func,...)\
+#define G_C(expr,tag,_call,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            (func);\
+        if(__CHECK(expr)){\
+            (_call);\
             goto tag;\
         }\
     }while(0)
 
-#define GL(expr,tag,fmt,...)\
+#define GL_I(expr,tag,fmt,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            LOGW(fmt,##__VA_ARGS__);\
+        if(__CHECK(expr)){\
+            __L_I(fmt,##__VA_ARGS__);\
             goto tag;\
         }\
     }while(0)
 
-#define GM(expr,tag,module) \
+#define GL_W(expr,tag,fmt,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            ret = ERRNO(ret,(module));\
+        if(__CHECK(expr)){\
+            __L_W(fmt,##__VA_ARGS__);\
             goto tag;\
         }\
     }while(0)
 
-// GE
-#define GEF(expr,func,...)\
+
+#define GL_E(expr,tag,fmt,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            if(NULL != func) (func)(__VA_ARGS__);\
+        if(__CHECK(expr)){\
+            __L_E(fmt,##__VA_ARGS__);\
+            goto tag;\
+        }\
+    }while(0)
+
+#define GL GL_W
+
+// G_E
+#define G_E_F(expr,func,...)\
+    do{\
+        if(__CHECK(expr)){\
+            if(NULL != func) (func)(##__VA_ARGS__);\
             goto error;\
         }\
     }while(0)
-#define GFE GEF
+#define G_F_E G_E_F
 
-#define GEC(expr,call)\
+#define G_E_C(expr,_call)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            (call);\
+        if(__CHECK(expr)){\
+            (_call);\
             goto error;\
         }\
     }while(0)
-#define GCE GEC
+#define G_C_E G_E_C
 
-#define GEL(expr,fmt,...) \
+#define G_EL_E(expr,fmt,...) \
     do{\
-        ret = (expr);\
-        if(ret){\
-            LOGW(fmt,##__VA_ARGS__);\
+        if(__CHECK(expr)){\
+            __L_E(fmt,##__VA_ARGS__);\
             goto error;\
         }\
     }while(0)
-#define GLE GEL
 
-#define GEM(expr,module) \
+#define G_EL_W(expr,fmt,...) \
     do{\
-        ret = (expr);\
-        if(ret){\
-            ret = ERRNO(ret,(module));\
+        if(__CHECK(expr)){\
+            __L_W(fmt,##__VA_ARGS__);\
             goto error;\
         }\
     }while(0)
-#define GME GEM
 
-
+#define G_EL_I(expr,fmt,...) \
+    do{\
+        if(__CHECK(expr)){\
+            __L_I(fmt,##__VA_ARGS__);\
+            goto error;\
+        }\
+    }while(0)
+#define G_EL G_EL_W
 
 // if expr true then run func and log ,then goto tag
-#define GCL(expr,tag,func,fmt,...)\
+#define G_CL_E(expr,tag,_call,fmt,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            (func);\
-            LOGW(fmt,##__VA_ARGS__);\
+        if(__CHECK(expr)){\
+            (_call);\
+            __L_E(fmt,##__VA_ARGS__);\
             goto tag;\
         }\
     }while(0)
-#define GLC  GCL
 
-#define GMC(expr,tag,module,func,...)\
+#define G_CL_W(expr,tag,_call,fmt,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            ret = ERRNO(ret,(module));\
-            (func);\
+        if(__CHECK(expr)){\
+            (_call);\
+            __L_W(fmt,##__VA_ARGS__);\
             goto tag;\
         }\
     }while(0)
-#define GCM  GMC
 
-#define GLM(expr,tag,module,fmt,...)\
+#define G_CL_I(expr,tag,_call,fmt,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            ret = ERRNO(ret,(module));\
-            LOGW(fmt,##__VA_ARGS__);\
+        if(__CHECK(expr)){\
+            (_call);\
+            __L_I(fmt,##__VA_ARGS__);\
             goto tag;\
         }\
     }while(0)
-#define GML  GLM
 
-#define GECM(expr,func,module)\
+#define G_CL G_CL_W
+
+// G F L
+#define G_FL_E(expr,tag,func,fmt,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            (func);\
-            ret = ERRNO(ret,(module));\
+        if(__CHECK(expr)){\
+            if(NULL != func) (func)(##__VA_ARGS__);\
+            __L_E(fmt,##__VA_ARGS__);\
+            goto tag;\
+        }\
+    }while(0)
+
+#define G_FL_W(expr,tag,func,fmt,...)\
+    do{\
+        if(__CHECK(expr)){\
+            if(NULL != func) (func)(##__VA_ARGS__);\
+            __L_W(fmt,##__VA_ARGS__);\
+            goto tag;\
+        }\
+    }while(0)
+
+#define G_FL_I(expr,tag,func,fmt,...)\
+    do{\
+        if(__CHECK(expr)){\
+            if(NULL != func) (func)(##__VA_ARGS__);\
+            __L_I(fmt,##__VA_ARGS__);\
+            goto tag;\
+        }\
+    }while(0)
+
+#define G_FL G_FL_W
+
+// G_E_CL
+#define G_E_CL_E(expr,_call,fmt,...)\
+    do{\
+        if(__CHECK(expr)){\
+            (_call);\
+            __L_E(fmt,##__VA_ARGS__);\
             goto error;\
         }\
     }while(0)
-#define GEMC GECM
-#define GMEC GECM
-#define GMCE GECM
-#define GCEM GECM
-#define GCME GECM
 
-#define GECL(expr,func,fmt,...)\
+#define G_E_CL_W(expr,_call,fmt,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            (func);\
-            LOGW(fmt,##__VA_ARGS__);\
+        if(__CHECK(expr)){\
+            (_call);\
+            __L_W(fmt,##__VA_ARGS__);\
             goto error;\
         }\
     }while(0)
-#define GELC GECL
-#define GLEC GECL
-#define GLCE GECL
-#define GCEL GECL
-#define GCLE GECL
 
-#define GEML(expr,module,fmt,...)\
+#define G_E_CL_I(expr,_call,fmt,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            ret = ERRNO(ret,(module));\
-            LOGW(fmt,##__VA_ARGS__);\
+        if(__CHECK(expr)){\
+            (_call);\
+            __L_I(fmt,##__VA_ARGS__);\
             goto error;\
         }\
     }while(0)
-#define GELM GEML
-#define GLEM GEML
-#define GLME GEML
-#define GMEL GEML
-#define GMLE GEML
+#define G_E_CL G_E_CL_W
 
-#define GCML(expr,tag,func,module,fmt,...)\
+// G_E_FL
+#define G_E_FL_E(expr,func,fmt,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
-            ret = ERRNO(ret,(module));\
-            LOGW(fmt,##__VA_ARGS__);\
-            goto tag;\
+        if(__CHECK(expr)){\
+            if(NULL != func) (func)(##__VA_ARGS__);\
+            __L_E(fmt,##__VA_ARGS__);\
+            goto error;\
         }\
     }while(0)
-#define GCLM GCML
-#define GLCM GCML
-#define GLMC GCML
-#define GMCL GCML
-#define GMLC GCML
 
+#define G_E_FL_W(expr,func,fmt,...)\
+    do{\
+        if(__CHECK(expr)){\
+            if(NULL != func) (func)(##__VA_ARGS__);\
+            __L_W(fmt,##__VA_ARGS__);\
+            goto error;\
+        }\
+    }while(0)
+
+#define G_E_FL_I(expr,func,fmt,...)\
+    do{\
+        if(__CHECK(expr)){\
+            if(NULL != func) (func)(##__VA_ARGS__);\
+            __L_I(fmt,##__VA_ARGS__);\
+            goto error;\
+        }\
+    }while(0)
+#define G_E_FL G_E_FL_W
 #endif

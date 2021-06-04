@@ -4,20 +4,12 @@
 #include "base.h"
 
 
-#define E(expr) \
-    do{\
-        ret = (expr);\
-        if(ret) { \
-            exit(ret); \
-        } \
-    }while(0)
+#define E(expr) if(__CHECK(expr)) exit(ret)
 
 #define EL(expr,fmt,...) \
     do{ \
-        ret = (expr);\
-        if(ret) { \
-            LOGE((fmt),##__VA_ARGS__);\
-            LOGE("error code : [%d]\n",ret); \
+        if(__CHECK(expr)) { \
+            LOGE("(errcode : %d)\t"fmt,ret,##__VA_ARGS__);\
             exit(ret); \
         } \
     }while(0)

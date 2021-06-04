@@ -2,16 +2,11 @@
 #define __MACROS_S_H__
 #include "base.h"
 
-#define S(expr)\
-    do{\
-        ret = (expr);\
-        if(ret) return;\
-    }while(0);
+#define S(expr) if(__CHECK(expr)) return
 
 #define SC(expr,func,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
+        if(__CHECK(expr)){\
             _C(func,##__VA_ARGS__);\
             return ;\
         }\
@@ -19,8 +14,7 @@
 
 #define SF(expr,func,...)\
     do{\
-        ret = (expr);\
-        if(ret){\
+        if(__CHECK(expr)){\
             if(NULL != func) func(__VA_ARGS__);\
             return;\
         }\

@@ -3,8 +3,10 @@
 #include <string.h>
 #include "mc.h"
 
-#define ERR_LIST_ITEM_NOT_FOUND 1
-#define M_LIST_VALID(expr) M((expr),MODULE_LIST)
+#ifdef MODULE_CURR
+#undef MODULE_CURR
+#define MODULE_CURR MODULE_LIST
+#endif
 
 typedef struct mc_list_item_s mc_list_item_t;
 struct mc_list_item_s{
@@ -24,38 +26,36 @@ int mc_list_init(mc_list_t **l,mc_list_free_f f){
     return 0;
 }
 
-#define _LIST_FREE_ITEM(list,item)\
+#define _LIST_FREE_ITEM(list,item,needCallBack)\
     do{\
-        if(NULL!=(list)->free){ \
+        if(NULL!=(list)->free && (needCallBack)){ \
             if(0 != (list)->free((item)->data))\
                 LOGD("list free function has failed.\n");\
-            R(FREE_T(&(item),mc_list_item_t));\
-        }else{\
-            LOGD("has no defined list free function.\n");\
         }\
+        R(FREE_T(&(item),mc_list_item_t));\
+        (list)->size--;\
     }while(0)
 
 int mc_list_free(mc_list_t **list){
     int ret = 0;
-    M_LIST_VALID(NULL == list);
-    M_LIST_VALID(NULL == *list);
+    R(NULL == list);
+    R(NULL == *list);
 
     mc_list_t *l = *list;
     mc_list_item_t *curr = (mc_list_item_t *)l->head,*next = NULL;
     while(curr){
         next = curr->next;
-        _LIST_FREE_ITEM(l,curr);
+        _LIST_FREE_ITEM(l,curr,1);
         curr = next;
     }
-
     FREE_T(list,mc_list_t);
     return 0;
 }
 
 int mc_list_add(mc_list_t *list,void *data){
     int ret = 0;
-    M_LIST_VALID(NULL == list);
-    M_LIST_VALID(NULL == data);
+    R(NULL == list);
+    R(NULL == data);
 
     mc_list_item_t *item = NULL;
     R(MALLOC_T(&item,mc_list_item_t));
@@ -75,8 +75,8 @@ int mc_list_add(mc_list_t *list,void *data){
 
 int mc_list_insert(mc_list_t *list,void *data,unsigned int index){
     int ret = 0;
-    M_LIST_VALID(NULL == list);
-    M_LIST_VALID(NULL == data);
+    R(NULL == list);
+    R(NULL == data);
 
     mc_list_item_t *item = NULL;
     R(MALLOC_T(&item,mc_list_item_t));
@@ -115,9 +115,9 @@ int mc_list_insert(mc_list_t *list,void *data,unsigned int index){
 
 int mc_list_index(void **dst,mc_list_t *list,unsigned int index){
     int ret = 0;
-    M_LIST_VALID(NULL == list);
-    M_LIST_VALID(NULL == dst);
-    M_LIST_VALID(0 > index || index >= list->size);
+    R(NULL == list);
+    R(NULL == dst);
+    R(0 > index || index >= list->size);
 
     int i = 0,isFound = 0;
     mc_list_item_t *curr = (mc_list_item_t *)list->head;
@@ -128,14 +128,14 @@ int mc_list_index(void **dst,mc_list_t *list,unsigned int index){
             break;
         }
     }while(NULL != (curr = curr->next));
-    M_LIST_VALID(0 == isFound);
+    R(0 == isFound);
     return 0;
 }
 
-int mc_list_del(mc_list_t *list,void *data){
+static int __mc_list_del(mc_list_t *list,void *data,int needCallBack){
     int ret = 0;
-    M_LIST_VALID(NULL == list);
-    M_LIST_VALID(NULL == data);
+    R(NULL == list);
+    R(NULL == data);
 
     mc_list_item_t *prev=NULL, *curr = NULL,*next = NULL;
     curr = (mc_list_item_t *)list->head;
@@ -147,18 +147,39 @@ int mc_list_del(mc_list_t *list,void *data){
             }else{
                 prev->next = next;
             }
-            _LIST_FREE_ITEM(list,curr);
+            _LIST_FREE_ITEM(list,curr,needCallBack);
             break;
+        }else{
+            prev = curr;
         }
+    }
+    if(list->head == NULL){
+        list->head = NULL;
+        list->tail = NULL;
     }
 
     return 0;
 }
+int mc_list_del(mc_list_t *list,void *data){
+    int ret = 0;
+    R(NULL == list);
+    R(NULL == data);
+    R(__mc_list_del(list,data,1));
+    return ret;
+}
+
+int mc_list_del_without_callback(mc_list_t *list,void *data){
+    int ret = 0;
+    R(NULL == list);
+    R(NULL == data);
+    R(__mc_list_del(list,data,0));
+    return ret;
+}
 
 int mc_list_for(mc_list_t *list,mc_list_for_f callback,void **data){
     int ret = 0;
-    M_LIST_VALID(NULL == list);
-    M_LIST_VALID(NULL == callback);
+    R(NULL == list);
+    R(NULL == callback);
 
     int index = 0;
     mc_list_item_t *curr = (mc_list_item_t *)list->head;

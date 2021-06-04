@@ -19,7 +19,7 @@ int main(int argc,char *argv[]){
     LOGE("test error!\n");
 
     int test = 10;
-    GC(f1(),end,({printf("test:%d\n",test);}));
+    G_C(f1(),end,({printf("test:%d\n",test);}));
     RC(f1(),({printf("test:%d\n",test);}));
 
 end:

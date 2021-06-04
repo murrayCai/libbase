@@ -1,16 +1,17 @@
 #ifndef __MI_H__
 #define __MI_H__
-
-#define MC_MODULE_DEFINE 
-#define MC_ERR_E
-#define MC_MI_HEADERS
-
+#include "./defines/ex.h"
 typedef enum{
+    MODULE_MC,
     MODULE_MEM,
+    MODULE_ERR,
     MODULE_LOG,
     MODULE_ARR,
     MODULE_LIST,
-    MC_MODULE_DEFINE
+#ifdef MC_MODULE_DEFINE_EX
+    MC_MODULE_DEFINE_EX,
+#endif
+    MC_MODULE_MAX
 }module_e;
 
 typedef enum{
@@ -20,20 +21,25 @@ typedef enum{
     ERR_MALLOC,
     ERR_MALLOC_NULL,
     ERR_LIST_FOR_F,
-    MC_ERR_E
+#ifdef MC_ERR_DEFINE_EX
+    MC_ERR_DEFINE_EX,
+#endif
+    MC_ERR_MAX
 }err_e;
-#define __MI_HEADERS_ \
-    MI_mem,\
-    MI_ptr_t,\
-    MI_str,\
-    MI_arr_t,\
-    MI_kv_t,\
-    MI_mc_list_item_t,\
-    MI_mc_list_t
 
 typedef enum{
-    __MI_HEADERS_,
-    MC_MI_HEADERS
+    MI_mem_item_t,
+    MI_mc_t,
+    MI_error_code_t,
+    MI_ptr_t,
+    MI_str_t,
+    MI_arr_t,
+    MI_kv_t,
+    MI_mc_list_item_t,
+    MI_mc_list_t,
+#ifdef MC_MI_DEFINE_EX
+    MC_MI_DEFINE_EX,
+#endif
     MI_MAX
 }mi_e;
 
