@@ -5,6 +5,7 @@
     MODULE_MAIN
 
 #define MC_MI_DEFINE_EX_GENERATOR \
-    MI_app_t
+    MI_app_t,\
+    MI_file_status_t
 
 #endif

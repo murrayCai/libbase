@@ -28,9 +28,8 @@ int mc_list_init(mc_list_t **l,mc_list_free_f f){
 
 #define _LIST_FREE_ITEM(list,item,needCallBack)\
     do{\
-        if(NULL!=(list)->free && (needCallBack)){ \
-            if(0 != (list)->free((item)->data))\
-                LOGD("list free function has failed.\n");\
+        if(NULL != (list)->free && (needCallBack)){ \
+            R( (list)->free( (item)->data ) );\
         }\
         R(FREE_T(&(item),mc_list_item_t));\
         (list)->size--;\

@@ -8,6 +8,7 @@ typedef enum{
     MODULE_LOG,
     MODULE_ARR,
     MODULE_LIST,
+    MODULE_DT,
 #ifdef MC_MODULE_DEFINE_EX
     MC_MODULE_DEFINE_EX,
 #endif

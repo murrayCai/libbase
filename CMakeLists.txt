@@ -9,6 +9,7 @@ set(CMAKE_INSTALL_PREFIX /usr)
 # set(CMAKE_DEBUG_POSTFIX "_d")
 
 include_directories("./include")
+SET(CMAKE_C_FLAGS "-std=c89 -gdwarf-4 -g3")
 
 add_subdirectory(src)
-add_subdirectory(test)
+#add_subdirectory(test)

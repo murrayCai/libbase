@@ -1,6 +1,9 @@
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
+#include "mc.h"
+
+#ifdef MODULE_CURR
+#undef MODULE_CURR
+#define MODULE_CURR MODULE_DT
+#endif
 
 char _time_str_[64] = {0};
 char *now_str(){
@@ -28,3 +31,18 @@ int get_days_of_month(int year,int month){
         return 31;
     }
 }
+
+int timeval_diff(struct timeval *tv0,struct timeval *tv1,double *diff){
+    int ret = 0;
+    R(NULL == tv0);
+    R(NULL == tv1);
+    double time1, time2;
+
+    time1 = tv0->tv_sec + (tv0->tv_usec / 1000000.0);
+    time2 = tv1->tv_sec + (tv1->tv_usec / 1000000.0);
+
+    (*diff) = time1 - time2;
+    if((*diff) < 0) (*diff) = -1 * (*diff);
+
+    return ret;
+} 
